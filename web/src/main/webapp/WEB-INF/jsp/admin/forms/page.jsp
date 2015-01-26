@@ -76,13 +76,13 @@
 
     <div class="form_buttons col-md-9">
         <div class="col-md-3">
-            <a class="btn btn_new" href="/admin/main.jsp?action=cancel" type="submit"  >Отмена</a>
+            <a class="btn btn_new" href="/admin/page/cancel" type="submit"  >Отмена</a>
         </div>
         <div class="col-md-3">
             <a class="btn btn_new" href="/admin/form.jsp?action=delete&obj=page&id=${requestScope.page.page_id}">Удалить</a>
         </div>
         <div class="col-md-3">
-            <button class="btn" formaction="/admin/page">Применить</button>
+            <button class="btn" formaction="/admin/page/add">Применить</button>
         </div>
     </div>
 </div>

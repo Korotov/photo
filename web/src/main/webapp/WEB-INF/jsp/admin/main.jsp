@@ -122,7 +122,7 @@
                 <th>Теги</th>
             </tr>
 
-            <c:forEach var="page" items="${requestScope.allPages}" >
+            <c:forEach var="page" items="${requestScope.pageList}" >
             <tr>
                     <%--Page date--%>
                 <td><c:out value="${page.pageDetail.date}" /></td>

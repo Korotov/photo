@@ -16,5 +16,5 @@ public interface IPageService  {
 
     public boolean deletePage(Page page);
 
-    public Page load(int id);
+    public Page load(long id);
 }

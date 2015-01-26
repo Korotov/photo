@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Controller
 public class PageController {
 
@@ -22,11 +25,11 @@ public class PageController {
     @Autowired(required = true)
     public IPageService pageService;
 
-    @RequestMapping(value = "/admin/page/add", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/page/add", method = RequestMethod.POST)
     public String mainPage(
-            @RequestParam(value = "id", required = false) int id,
+            @RequestParam(value = "id", required = false) String id,
             @RequestParam(value = "name") String name,
-            @RequestParam(value = "category") int category_id,
+            @RequestParam(value = "category") String category_id,
             @RequestParam(value = "date") String date,
             @RequestParam(value = "action") String action,
             ModelMap model){
@@ -34,21 +37,38 @@ public class PageController {
         Page page = new Page();
         Category category = new Category();
         PageDetail pageDetail = new PageDetail();
+        Set<Page> pages = new HashSet<Page>();
 
-        category.setCategory_id(category_id);
+        int ctg_id = Integer.parseInt(category_id);
+        category.setCategory_id(ctg_id);
+
         page.setCategory(category);
+        category.setPages(pages);
+        category.getPages().add(page);
+
         page.setPageDetail(pageDetail);
+        pageDetail.setPage(page);
+
+
         pageDetail.setDate(date);
         pageDetail.setPage_name(name);
 
-
-        if ( ((Integer)id)!=null) {
-            page.setPage_id(id);
+        int page_id;
+        if ( id!=null&&(!("".equals(id))) ) {
+            page_id = Integer.parseInt(id);
+            page.setPage_id(page_id);
         }
+
 
         pageService.save(page);
 
-        return "admin";
+        return "redirect:/admin";
+    }
+
+    @RequestMapping(value = "/admin/page/cancel", method = RequestMethod.POST)
+    public String mainPage(
+            ModelMap model){
+        return "redirect:/admin";
     }
 
 

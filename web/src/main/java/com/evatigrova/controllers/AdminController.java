@@ -26,8 +26,6 @@ public class AdminController {
     public String mainPage(
             ModelMap model){
 
-
-
         model.put("categories", categoryService.getCategories());
         model.put("pageList", pageService.getAllPages(maxResults));
 
@@ -62,18 +60,20 @@ public class AdminController {
     @RequestMapping(value = "admin/new", method = RequestMethod.POST)
     public String newPage( ModelMap model) {
         model.addAttribute("action", "add");
+        model.put("categories", categoryService.getCategories());
         return "page";
     }
 
     @RequestMapping(value = "admin/edit", method = RequestMethod.GET)
     public String editPage(
-            @RequestParam(value = "id" ) int id,
+            @RequestParam(value = "id" ) long id,
             ModelMap model) {
-        // получить страницу и передать в форму
+
         Page page = pageService.load(id);
 
-        model.addAttribute("page", page);
+        model.put("page", page);
         model.addAttribute("action", "edit");
+        model.put("categories", categoryService.getCategories());
         return "page";
     }
 

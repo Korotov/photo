@@ -156,7 +156,8 @@ public class PageService  implements IPageService {
      * @return
      */
     @Override
-    public Page load(int id) {
-        return pageDao.load(Page.class, id);
+    public Page load(long id) {
+        Page page = pageDao.load(Page.class, id);
+        return pageDao.merge(page);
     }
 }
