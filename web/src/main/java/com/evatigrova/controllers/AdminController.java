@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class AdminController {
-    public static final int maxResults = 3;
+    public static final int maxResults = 5;
 
     @Autowired(required = true)
     public ICategoryService categoryService;
