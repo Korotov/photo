@@ -12,10 +12,11 @@
 <meta charset="UTF-8">
 <div class="allPage">
 
-    <form id="select">
 
+    <!-- SEARCH -->
     <div class="col-md-12">
-        <%--<form>--%>
+        <form id="select" method="post">
+
         <table class="table table-bordered searchTable">
             <tr>
                 <td class="search_col">
@@ -49,15 +50,16 @@
                     <strong>Добавить статью</strong>
                 </td>
                 <td>
-                    <a class="btn btn_new" href="/admin/action.jsp?action=add&obj=page" type="submit">Добавить</a>
+                    <button form="select" formaction="/admin/new" type="submit" class="btn btn_new">Добавить</button>
+                    <%--<a class="btn btn_new" href="/admin/new" type="submit">Добавить</a>--%>
                 </td>
             </tr>
         </table>
         <input type="hidden" form="select" name="action" value="select">
-        <%--</form>--%>
+        </form>
     </div>
-    </form>
 
+    <!-- ACTIONS W/CATEGORY -->
     <div class="col-md-12 editTable">
         <form id="category" method="get"  action="/admin/add_category">
 
@@ -103,84 +105,76 @@
                 </tr>
             </table>
             <input form="category" type="hidden" name="obj" value="category">
-
         </form>
     </div>
 
 
+    <!-- TABLE W/PAGES -->
+    <div class="category1">
 
-<div class="category1">
+        <table class="table table-bordered resultTable" >
+            <tr>
+                <th class="date">Дата</th>
+                <th>Статья</th>
+                <th>Категория</th>
+                <th>Краткое описание</th>
+                <th class="status">Статус</th>
+                <th>Теги</th>
+            </tr>
 
-    <table class="table table-bordered resultTable" >
-        <tr>
-            <th class="date">Дата</th>
-            <th>Статья</th>
-            <th>Категория</th>
-            <th>Краткое описание</th>
-            <th class="status">Статус</th>
-            <th>Теги</th>
-        </tr>
+            <c:forEach var="page" items="${requestScope.allPages}" >
+            <tr>
+                    <%--Page date--%>
+                <td><c:out value="${page.pageDetail.date}" /></td>
+                    <%--Page name--%>
+                <td>
+                    <a href="/admin/edit?id=${page.getPage_id()}">
+                        <c:out value="${page.pageDetail.getPage_name()}" />
+                    </a>
+                </td>
+                    <%--Category--%>
+                <td>
+                    <a href="/admin/action.jsp?action=select&category_id=${page.category.category_id}">
+                        <c:out value="${page.category.category_name}" />
+                    </a>
+                </td>
+                    <%--Short description--%>
 
-    <c:forEach var="page" items="${requestScope.allPages}" >
+                <td>
+                    <p >
+                        <%--<c:out value="${page.pageDetail.getContexts.get}" />--%>
+                    </p>
+                </td>
+                        <%--Status--%>
+                <td  >
+                    <p>
+                        <c:if test="${page.pageDetail.isVisible()==true}">
+                            <input type="checkbox" readonly="readonly" checked>
+                        </c:if>
+                        <c:if test="${page.pageDetail.isVisible()==false}">
+                            <input type="checkbox" readonly="readonly">
+                        </c:if>
+                    </p>
+                </td>
+                        <%--Tags--%>
+                <td>
+                    <p>
+                        <%--<c:out value="${page.tags.tag_name}" />--%>
+                    </p>
+                </td>
+            </tr>
+            </c:forEach>
+        </table>
+    </div>
 
-
-        <tr>
-                <%--Page date--%>
-            <td><c:out value="${page.pageDetail.date}" /></td>
-                <%--Page name--%>
-            <td>
-                <a href="/admin/action.jsp?action=edit&obj=page&id=${page.getPage_id()}">
-                    <c:out value="${page.pageDetail.getPage_name()}" />
-                </a>
-            </td>
-                <%--Category--%>
-            <td>
-                <a href="/admin/action.jsp?action=select&category_id=${page.category.category_id}">
-                    <c:out value="${page.category.category_name}" />
-                </a>
-            </td>
-                <%--Short description--%>
-
-            <td>
-                <p >
-                    <%--<c:out value="${page.pageDetail.getContexts.get}" />--%>
-                </p>
-            </td>
-                    <%--Status--%>
-            <td  >
-                <p>
-                    <c:if test="${page.pageDetail.isVisible()==true}">
-                        <input type="checkbox" readonly="readonly" checked>
-                    </c:if>
-                    <c:if test="${page.pageDetail.isVisible()==false}">
-                        <input type="checkbox" readonly="readonly">
-                    </c:if>
-                </p>
-            </td>
-                    <%--Tags--%>
-            <td>
-                <p>
-                    <%--<c:out value="${page.tags.tag_name}" />--%>
-                </p>
-            </td>
-
-
-        </tr>
-     </c:forEach>
-    </table>
-
-</div>
-<div class="pages">
-
-
-    <a class="main_a"  href="/admin/action.jsp?action=select&page=previous&category_id=${selected_category}&search_page=${requestScope.search_page}" onClick="${requestScope.prev_st}" class="page btn btn_new"><<<</a>
-    <button class="page btn btn_new" type="submit">${requestScope.search_page}</button>
-    <a class="main_a"  href="/admin/action.jsp?action=select&page=next&category_id=${selected_category}&search_page=${requestScope.search_page}" onClick="${requestScope.next_st}" class="page btn btn_new">>>></a>
-    <%--<button class="page btn btn-group" type="submit" formaction="/action.jsp?">>>></button>--%>
-
+    <!--PAGINATION -->
+    <div class="pages">
+        <a class="main_a"  href="/admin/action.jsp?action=select&page=previous&category_id=${selected_category}&search_page=${requestScope.search_page}" onClick="${requestScope.prev_st}" class="page btn btn_new"><<<</a>
+        <button class="page btn btn_new" type="submit">${requestScope.search_page}</button>
+        <a class="main_a"  href="/admin/action.jsp?action=select&page=next&category_id=${selected_category}&search_page=${requestScope.search_page}" onClick="${requestScope.next_st}" class="page btn btn_new">>>></a>
 
     </div>
-    </form>
+
 </div>
 
 

@@ -15,4 +15,6 @@ public interface IPageService  {
     public boolean save(Page page);
 
     public boolean deletePage(Page page);
+
+    public Page load(int id);
 }

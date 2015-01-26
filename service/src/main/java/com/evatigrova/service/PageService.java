@@ -60,6 +60,13 @@ public class PageService  implements IPageService {
         return criteria;
     }
 
+    /**
+     *
+     * @param search_page_id
+     * @param maxPages
+     * @return
+     */
+    @Override
     public List<Page> getAllPages(int search_page_id, int maxPages){
         Criteria criteria = paginationCriteria(search_page_id, maxPages);
         return pageDao.selectByCriteria(criteria);
@@ -70,6 +77,7 @@ public class PageService  implements IPageService {
      * @param maxPages
      * @return
      */
+    @Override
     public List<Page> getAllPages(int maxPages) {
         Criteria criteria = paginationCriteria(0, maxPages);
         return pageDao.selectByCriteria(criteria);
@@ -90,10 +98,11 @@ public class PageService  implements IPageService {
     }
 
     /**
-     *
+     * Save page
      * @param page
      * @return
      */
+    @Override
     public boolean save(Page page) {
 
         int id = page.getCategory().getCategory_id();
@@ -107,14 +116,14 @@ public class PageService  implements IPageService {
         pageDao.saveOrUpdate(page);
 
         return true;
-
     }
 
     /**
-     *
+     *  Delete page
      * @param page
      * @return
      */
+    @Override
     public boolean deletePage(Page page) {
 
         Page persistentPage = pageDao.load(Page.class, page.getPage_id());
@@ -139,5 +148,15 @@ public class PageService  implements IPageService {
         pageDao.delete(persistentPage);
 
         return true;
+    }
+
+    /**
+     * Load page by id
+     * @param id
+     * @return
+     */
+    @Override
+    public Page load(int id) {
+        return pageDao.load(Page.class, id);
     }
 }

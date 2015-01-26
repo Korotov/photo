@@ -26,10 +26,6 @@
 <form id="usual"  method="post">
 
 <div class="all col-md-12">
-    <div class="header">
-        <jsp:include page="/WEB-INF/jsp/admin/base/header.jsp" />
-    </div>
-
     <div class="head">
         <h1>${page.pageDetail.page_name}</h1>
     </div>
@@ -86,7 +82,7 @@
             <a class="btn btn_new" href="/admin/form.jsp?action=delete&obj=page&id=${requestScope.page.page_id}">Удалить</a>
         </div>
         <div class="col-md-3">
-            <button class="btn" formaction="/admin/form.jsp">Применить</button>
+            <button class="btn" formaction="/admin/page">Применить</button>
         </div>
     </div>
 </div>

@@ -2,6 +2,7 @@ package com.evatigrova.controllers;
 
 
 import com.evatigrova.beans.Category;
+import com.evatigrova.beans.Page;
 import com.evatigrova.service.ICategoryService;
 import com.evatigrova.service.IPageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = "admin/add_category", method = RequestMethod.GET)
-    public String addCategory(@RequestParam(value = "category_edit", required = false) String category_id,
+    public String manageCategory(@RequestParam(value = "category_edit", required = false) String category_id,
                               @RequestParam("action") String action,
                               @RequestParam("category_name") String category_name,
                            ModelMap model){
@@ -56,7 +57,25 @@ public class AdminController {
         }
 
         return "redirect:/admin";
-        }
+    }
+
+    @RequestMapping(value = "admin/new", method = RequestMethod.POST)
+    public String newPage( ModelMap model) {
+        model.addAttribute("action", "add");
+        return "page";
+    }
+
+    @RequestMapping(value = "admin/edit", method = RequestMethod.GET)
+    public String editPage(
+            @RequestParam(value = "id" ) int id,
+            ModelMap model) {
+        // получить страницу и передать в форму
+        Page page = pageService.load(id);
+
+        model.addAttribute("page", page);
+        model.addAttribute("action", "edit");
+        return "page";
+    }
 
 
 
