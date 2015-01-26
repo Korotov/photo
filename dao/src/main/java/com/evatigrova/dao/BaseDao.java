@@ -33,21 +33,38 @@ public class BaseDao<T> implements Dao<T> {
     }
 
     public Session getSession() {
-        SessionFactory sessionFactory1 = sessionFactory;
-        return sessionFactory.getCurrentSession();
+        if (sessionFactory!=null){
+            return sessionFactory.getCurrentSession();
+        }
+        else return sessionFactory.openSession();
     }
 
+    @Override
     public void saveOrUpdate(T t) {
         getSession().saveOrUpdate(t);
         log.info("saveOrUpdate:" + t );
     }
 
+    @Override
+    public void save(T t) {
+        getSession().save(t);
+        log.info("save:" + t );
+    }
+
+    @Override
+    public void update(T t) {
+        getSession().update(t);
+        log.info("update:" + t );
+    }
+
+    @Override
     public T load(Class<T> clazz, Serializable id) {
         T t = (T) getSession().load(clazz, id);
         log.info("load:" + id);
         return t;
     }
 
+    @Override
     public void delete(T t) {
         getSession().delete(t);
         log.info("delete:" + t);
@@ -85,6 +102,11 @@ public class BaseDao<T> implements Dao<T> {
     public List<T> selectAll() {
         List<T> list = sessionFactory.getCurrentSession().createQuery("from " + this.getEntityClass().getSimpleName()).list();
         return list;
+    }
+
+    @Override
+    public T merge(T t) {
+        return (T) getSession().merge(t);
     }
 
     private Class<?> getEntityClass() {

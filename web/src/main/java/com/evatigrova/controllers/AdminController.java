@@ -27,29 +27,27 @@ public class AdminController {
 
 
 
-        model.put("categoryList", categoryService.getCategories());
+        model.put("categories", categoryService.getCategories());
         model.put("pageList", pageService.getAllPages(maxResults));
 
         return "admin";
     }
 
     @RequestMapping(value = "admin/add_category", method = RequestMethod.GET)
-    public String addCategory(@RequestParam("category_edit") String category_id,
+    public String addCategory(@RequestParam(value = "category_edit", required = false) String category_id,
                               @RequestParam("action") String action,
                               @RequestParam("category_name") String category_name,
                            ModelMap model){
         Category category=null;
         if ("add".equals(action)) {
             category = new Category();
+            category.setCategory_name(category_name);
+            categoryService.save(category);
         }
         if("edit".equals(action)) {
             int id = Integer.parseInt(category_id);
-            category = categoryService.load(id);
+            categoryService.changeCategoryName(id, category_name);
         }
-        category.setCategory_name(category_name);
-
-
-
 
         return "redirect:/admin";
     }

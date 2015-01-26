@@ -6,8 +6,6 @@ import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.List;
-import java.util.Set;
 
 /**
  *
@@ -40,7 +38,7 @@ public class PageDetail {
     @PrimaryKeyJoinColumn
     private Page page;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pageDetail")
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE}, mappedBy = "pageDetail")
     private Collection<Context> contexts;
 
 

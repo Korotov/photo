@@ -59,8 +59,8 @@
     </form>
 
     <div class="col-md-12 editTable">
-        <sf:form id="category" method="post" modelAttribute="category"  action="/admin/change_category">
-        <fieldset>
+        <form id="category" method="get"  action="/admin/add_category">
+
             <table class="table table-bordered ">
                 <tr>
                     <td>
@@ -97,14 +97,14 @@
                         <input name="category_name" type="text" placeholder="поле для названия" />
                     </td>
                     <td>
-                        <button class="btn btn_new" form="category" formaction="/admin/action.jsp" type="submit">Применить</button>
+                        <button class="btn btn_new" form="category" formaction="/admin/add_category" type="submit">Применить</button>
 
                     </td>
                 </tr>
             </table>
             <input form="category" type="hidden" name="obj" value="category">
-        </fieldset>
-        </sf:form>
+
+        </form>
     </div>
 
 

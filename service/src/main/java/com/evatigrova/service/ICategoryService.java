@@ -12,10 +12,14 @@ public interface ICategoryService  {
 
     public void save(Category category);
 
+    public void update(Category category);
+
     /**
      * This method copy all pages of deleting
      * category to category with index one
      * @param category
      */
     public void delete(Category category);
+
+    public void changeCategoryName(int category_id, String name);
 }

@@ -1,14 +1,16 @@
 package com.evatigrova.beans;
 
+import org.hibernate.annotations.Proxy;
+
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
  *
  */
 @Entity
+@Proxy(lazy = false)
 @Table(name="CATEGORIES")
 
 public class Category implements Serializable {

@@ -32,7 +32,12 @@ public class CategoryService implements ICategoryService{
 
     @Override
     public void save(Category category) {
-        categoryDao.saveOrUpdate(category);
+        categoryDao.save(category);
+    }
+
+    @Override
+    public void update(Category category) {
+        categoryDao.update(category);
     }
 
     public Category load(int id) {
@@ -40,7 +45,7 @@ public class CategoryService implements ICategoryService{
     }
 
     public List<Category> getCategories() {
-        String selectAllCategories = "SELECT C FROM com.evatigrova.beans.Category C ORDER BY C.category_name DESC";
+        String selectAllCategories = "SELECT C FROM com.evatigrova.beans.Category C ORDER BY C.category_name ASC";
         Query query = categoryDao.getSession().createQuery(selectAllCategories);
 
         return categoryDao.selectByHQL(query);
@@ -63,5 +68,13 @@ public class CategoryService implements ICategoryService{
 
             categoryDao.delete(persistentCategory);
         }
+    }
+
+    @Override
+    public void changeCategoryName(int category_id, String name) {
+
+        Category category = load(category_id);
+        category.setCategory_name(name);
+        update(category);
     }
 }        

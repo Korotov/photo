@@ -15,6 +15,10 @@ public interface Dao<T> {
 
     void saveOrUpdate(T t);
 
+    public void save(T t);
+
+    public void update(T t);
+
     T load(Class<T> clazz, Serializable id) ;
 
     public List<T> selectByCriteria(Criteria criteria);
@@ -24,6 +28,8 @@ public interface Dao<T> {
     public List<T> selectAll();
 
     public void refresh(T t);
+
+    public T merge(T t);
 
 
 
