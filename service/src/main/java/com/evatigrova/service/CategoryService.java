@@ -54,20 +54,21 @@ public class CategoryService implements ICategoryService{
     /**
      * This method copy all pages of deleting
      * category to category with index one
-     * @param category
+     * @param id
      */
-    public void delete(Category category){
-        if(category!=null) {
-            Category persistentCategory = categoryDao.load(Category.class, category.getCategory_id());
-            Category categoryForPagesWCategory = categoryDao.load(Category.class, 1);
-            Set<Page> pageSet = persistentCategory.getPages();
-            for (Page page : pageSet) {
-                page.setCategory(categoryForPagesWCategory);
-            }
-            pageSet.clear();
+    @Override
+    public void delete(int id){
 
-            categoryDao.delete(persistentCategory);
+        Category persistentCategory = categoryDao.load(Category.class, id);
+        Category categoryForPagesWCategory = categoryDao.load(Category.class, 1);
+        Set<Page> pageSet = persistentCategory.getPages();
+        for (Page page : pageSet) {
+            page.setCategory(categoryForPagesWCategory);
         }
+        pageSet.clear();
+
+        categoryDao.delete(persistentCategory);
+
     }
 
     @Override

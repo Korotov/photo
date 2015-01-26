@@ -49,8 +49,14 @@ public class AdminController {
             categoryService.changeCategoryName(id, category_name);
         }
 
+        if("delete".equals(action)) {
+            int id = Integer.parseInt(category_id);
+            categoryService.delete(id);
+
+        }
+
         return "redirect:/admin";
-    }
+        }
 
 
 

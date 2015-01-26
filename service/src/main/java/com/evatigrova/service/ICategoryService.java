@@ -19,7 +19,7 @@ public interface ICategoryService  {
      * category to category with index one
      * @param category
      */
-    public void delete(Category category);
+    public void delete(int id);
 
     public void changeCategoryName(int category_id, String name);
 }
