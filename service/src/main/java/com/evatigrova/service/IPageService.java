@@ -8,7 +8,9 @@ public interface IPageService  {
 
     public List<Page> getPagesByCategory(int category_id);
 
-    public List<Page> showAllPages(int search_page_id, int maxPages);
+    public List<Page> getAllPages(int search_page_id, int maxPages);
+
+    public List<Page> getAllPages(int maxPages);
 
     public boolean save(Page page);
 

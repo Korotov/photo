@@ -28,7 +28,7 @@ public class AdminController {
 
 
         model.put("categoryList", categoryService.getCategories());
-//        model.put("pageList", pageService.getAllPages());
+        model.put("pageList", pageService.getAllPages(maxResults));
 
         return "admin";
     }
