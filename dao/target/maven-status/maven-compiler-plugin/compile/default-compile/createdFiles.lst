@@ -1,0 +1,11 @@
+com\evatigrova\beans\Context.class
+com\evatigrova\beans\Page.class
+com\evatigrova\dao\Dao.class
+com\evatigrova\util\CustomNamingStrategy.class
+com\evatigrova\beans\PageDetail.class
+com\evatigrova\dao\BaseDao.class
+com\evatigrova\util\Main.class
+com\evatigrova\exceptions\DaoException.class
+com\evatigrova\beans\Tag.class
+com\evatigrova\beans\User.class
+com\evatigrova\beans\Category.class

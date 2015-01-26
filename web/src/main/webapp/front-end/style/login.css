@@ -1,0 +1,44 @@
+body.logging {
+    /* background-image: url("/front-end/img/game_of_thrones_5.jpg"); */
+    background-color: #5e5e5e;
+    color: #F4F4F4;
+}
+
+.single_select {
+    width: auto;
+}
+.controls input {
+    color: #565656;
+}
+.row {
+    width: 50%;
+
+    margin-left: auto;
+    margin-right: auto;
+    padding:5%;
+    margin-top:1.3%;
+    margin-bottom: 1.0%;
+}
+
+.my_right  {
+
+    color: #000000;
+    text-align: left;
+    margin-top: 1%
+}
+
+.my_left  {
+    color: #000000;
+    text-align: right;
+    margin-top: 1%;
+}
+
+.bt {
+    margin: 15px;
+    height: 10px;
+}
+
+button.custombutton {
+    background-color: #ffa31b;
+}
+

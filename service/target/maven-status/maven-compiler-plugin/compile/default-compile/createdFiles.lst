@@ -1,0 +1,9 @@
+com\evatigrova\service\ICategoryService.class
+com\evatigrova\service\IUserService.class
+com\evatigrova\service\IPageService.class
+com\evatigrova\service\ContextService.class
+com\evatigrova\service\MainService.class
+com\evatigrova\service\UserService.class
+com\evatigrova\service\PageService.class
+com\evatigrova\service\IContextService.class
+com\evatigrova\service\CategoryService.class

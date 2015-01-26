@@ -1,0 +1,226 @@
+2015-01-22 17:33:49,037 DEBUG - Logging Provider: org.jboss.logging.Log4jLoggerProvider
+2015-01-22 17:33:56,504 DEBUG - alter table CONTEXT drop foreign key FK_3unrpqgyuks8lch9uvexd2s6h
+2015-01-22 17:33:57,450 ERROR - HHH000389: Unsuccessful: alter table CONTEXT drop foreign key FK_3unrpqgyuks8lch9uvexd2s6h
+2015-01-22 17:33:57,452 ERROR - Error on rename of '.\tigrova\context' to '.\tigrova\#sql2-6e0-c' (errno: 152)
+2015-01-22 17:33:57,453 DEBUG - alter table PAGES drop foreign key FK_jsmsh7735jo3jfmwktbyainul
+2015-01-22 17:33:57,767 DEBUG - alter table PAGES_TAGS drop foreign key FK_qsvhauih4x5561csf0qa69v0f
+2015-01-22 17:33:58,001 DEBUG - alter table PAGES_TAGS drop foreign key FK_1q9qi6d73i23bc7pg47kqnwdr
+2015-01-22 17:33:58,370 DEBUG - drop table if exists CATEGORIES
+2015-01-22 17:33:58,443 DEBUG - drop table if exists CONTEXT
+2015-01-22 17:33:58,522 ERROR - HHH000389: Unsuccessful: drop table if exists CONTEXT
+2015-01-22 17:33:58,523 ERROR - Cannot delete or update a parent row: a foreign key constraint fails
+2015-01-22 17:33:58,524 DEBUG - drop table if exists PAGEDETAILS
+2015-01-22 17:33:58,551 ERROR - HHH000389: Unsuccessful: drop table if exists PAGEDETAILS
+2015-01-22 17:33:58,552 ERROR - Cannot delete or update a parent row: a foreign key constraint fails
+2015-01-22 17:33:58,553 DEBUG - drop table if exists PAGES
+2015-01-22 17:33:58,820 DEBUG - drop table if exists PAGES_TAGS
+2015-01-22 17:33:58,874 DEBUG - drop table if exists TAGS
+2015-01-22 17:33:58,935 DEBUG - drop table if exists USERS
+2015-01-22 17:33:59,023 DEBUG - create table CATEGORIES (CATEGORY_ID integer not null auto_increment, CATEGORY_NAME varchar(255), primary key (CATEGORY_ID)) ENGINE=InnoDB
+2015-01-22 17:33:59,167 DEBUG - create table CONTEXT (CONTEXT_ID bigint not null auto_increment, CONTEXT_TYPE varchar(255), SORT_INDEX integer, VALUE varchar(255), FK_PAGEDETAIL_ID bigint, primary key (CONTEXT_ID)) ENGINE=InnoDB
+2015-01-22 17:33:59,182 ERROR - HHH000389: Unsuccessful: create table CONTEXT (CONTEXT_ID bigint not null auto_increment, CONTEXT_TYPE varchar(255), SORT_INDEX integer, VALUE varchar(255), FK_PAGEDETAIL_ID bigint, primary key (CONTEXT_ID)) ENGINE=InnoDB
+2015-01-22 17:33:59,182 ERROR - Table 'context' already exists
+2015-01-22 17:33:59,183 DEBUG - create table PAGEDETAILS (PAGE_ID bigint not null, DATE varchar(255), PAGE_NAME varchar(255), VISIBLE bit, primary key (PAGE_ID)) ENGINE=InnoDB
+2015-01-22 17:33:59,185 ERROR - HHH000389: Unsuccessful: create table PAGEDETAILS (PAGE_ID bigint not null, DATE varchar(255), PAGE_NAME varchar(255), VISIBLE bit, primary key (PAGE_ID)) ENGINE=InnoDB
+2015-01-22 17:33:59,186 ERROR - Table 'pagedetails' already exists
+2015-01-22 17:33:59,186 DEBUG - create table PAGES (PAGE_ID bigint not null auto_increment, FK_CATEGORY_ID integer, primary key (PAGE_ID)) ENGINE=InnoDB
+2015-01-22 17:33:59,260 DEBUG - create table PAGES_TAGS (TAG_ID integer not null, PAGE_ID bigint not null, primary key (PAGE_ID, TAG_ID)) ENGINE=InnoDB
+2015-01-22 17:33:59,350 DEBUG - create table TAGS (TAG_ID integer not null auto_increment, TAG_NAME varchar(255), primary key (TAG_ID)) ENGINE=InnoDB
+2015-01-22 17:33:59,475 DEBUG - create table USERS (USER_ID integer not null auto_increment, USER_NAME varchar(255), user_pass varchar(255), primary key (USER_ID)) ENGINE=InnoDB
+2015-01-22 17:33:59,549 DEBUG - alter table CONTEXT add constraint FK_3unrpqgyuks8lch9uvexd2s6h foreign key (FK_PAGEDETAIL_ID) references PAGEDETAILS (PAGE_ID)
+2015-01-22 17:33:59,551 ERROR - HHH000389: Unsuccessful: alter table CONTEXT add constraint FK_3unrpqgyuks8lch9uvexd2s6h foreign key (FK_PAGEDETAIL_ID) references PAGEDETAILS (PAGE_ID)
+2015-01-22 17:33:59,551 ERROR - Key column 'FK_PAGEDETAIL_ID' doesn't exist in table
+2015-01-22 17:33:59,552 DEBUG - alter table PAGES add constraint FK_jsmsh7735jo3jfmwktbyainul foreign key (FK_CATEGORY_ID) references CATEGORIES (CATEGORY_ID)
+2015-01-22 17:33:59,913 DEBUG - alter table PAGES_TAGS add constraint FK_qsvhauih4x5561csf0qa69v0f foreign key (PAGE_ID) references PAGES (PAGE_ID)
+2015-01-22 17:34:00,086 DEBUG - alter table PAGES_TAGS add constraint FK_1q9qi6d73i23bc7pg47kqnwdr foreign key (TAG_ID) references TAGS (TAG_ID)
+2015-01-22 17:34:01,195 DEBUG - insert into CATEGORIES (CATEGORY_NAME) values (?)
+2015-01-22 17:34:01,320 INFO  - saveOrUpdate:Category{category_id=1, category_name='null'}
+2015-01-22 17:34:01,577 INFO  - load:1
+2015-01-22 17:34:01,682 DEBUG - select category0_.CATEGORY_ID as CATEGORY1_0_0_, category0_.CATEGORY_NAME as CATEGORY2_0_0_ from CATEGORIES category0_ where category0_.CATEGORY_ID=?
+2015-01-22 17:34:01,780 DEBUG - select pages0_.FK_CATEGORY_ID as FK_CATEG2_0_0_, pages0_.PAGE_ID as PAGE_ID1_3_0_, pages0_.PAGE_ID as PAGE_ID1_3_1_, pages0_.FK_CATEGORY_ID as FK_CATEG2_3_1_, pagedetail1_.PAGE_ID as PAGE_ID1_2_2_, pagedetail1_.DATE as DATE2_2_2_, pagedetail1_.PAGE_NAME as PAGE_NAM3_2_2_, pagedetail1_.VISIBLE as VISIBLE4_2_2_, page2_.PAGE_ID as PAGE_ID1_3_3_, page2_.FK_CATEGORY_ID as FK_CATEG2_3_3_ from PAGES pages0_ left outer join PAGEDETAILS pagedetail1_ on pages0_.PAGE_ID=pagedetail1_.PAGE_ID left outer join PAGES page2_ on pagedetail1_.PAGE_ID=page2_.PAGE_ID where pages0_.FK_CATEGORY_ID=?
+2015-01-22 17:34:01,831 DEBUG - insert into PAGES (FK_CATEGORY_ID) values (?)
+2015-01-22 17:34:02,013 DEBUG - insert into PAGEDETAILS (DATE, PAGE_NAME, VISIBLE, PAGE_ID) values (?, ?, ?, ?)
+2015-01-22 17:34:02,017 DEBUG - insert into CONTEXT (CONTEXT_TYPE, FK_PAGEDETAIL_ID, SORT_INDEX, VALUE) values (?, ?, ?, ?)
+2015-01-22 17:34:02,019 WARN  - SQL Error: 1054, SQLState: 42S22
+2015-01-22 17:34:02,020 ERROR - Unknown column 'FK_PAGEDETAIL_ID' in 'field list'
+2015-01-22 19:40:09,046 DEBUG - Logging Provider: org.jboss.logging.Log4jLoggerProvider
+2015-01-22 19:40:11,818 DEBUG - alter table CONTEXT drop foreign key FK_3unrpqgyuks8lch9uvexd2s6h
+2015-01-22 19:40:11,926 ERROR - HHH000389: Unsuccessful: alter table CONTEXT drop foreign key FK_3unrpqgyuks8lch9uvexd2s6h
+2015-01-22 19:40:11,927 ERROR - Error on rename of '.\tigrova\context' to '.\tigrova\#sql2-6c4-1e' (errno: 152)
+2015-01-22 19:40:11,928 DEBUG - alter table PAGES drop foreign key FK_jsmsh7735jo3jfmwktbyainul
+2015-01-22 19:40:12,084 DEBUG - alter table PAGES_TAGS drop foreign key FK_qsvhauih4x5561csf0qa69v0f
+2015-01-22 19:40:12,260 DEBUG - alter table PAGES_TAGS drop foreign key FK_1q9qi6d73i23bc7pg47kqnwdr
+2015-01-22 19:40:12,426 DEBUG - drop table if exists CATEGORIES
+2015-01-22 19:40:12,471 DEBUG - drop table if exists CONTEXT
+2015-01-22 19:40:12,476 ERROR - HHH000389: Unsuccessful: drop table if exists CONTEXT
+2015-01-22 19:40:12,478 ERROR - Cannot delete or update a parent row: a foreign key constraint fails
+2015-01-22 19:40:12,478 DEBUG - drop table if exists PAGEDETAILS
+2015-01-22 19:40:12,482 ERROR - HHH000389: Unsuccessful: drop table if exists PAGEDETAILS
+2015-01-22 19:40:12,483 ERROR - Cannot delete or update a parent row: a foreign key constraint fails
+2015-01-22 19:40:12,484 DEBUG - drop table if exists PAGES
+2015-01-22 19:40:12,520 DEBUG - drop table if exists PAGES_TAGS
+2015-01-22 19:40:12,552 DEBUG - drop table if exists TAGS
+2015-01-22 19:40:12,585 DEBUG - drop table if exists USERS
+2015-01-22 19:40:12,619 DEBUG - create table CATEGORIES (CATEGORY_ID integer not null auto_increment, CATEGORY_NAME varchar(255), primary key (CATEGORY_ID)) ENGINE=InnoDB
+2015-01-22 19:40:12,708 DEBUG - create table CONTEXT (CONTEXT_ID bigint not null auto_increment, CONTEXT_TYPE varchar(255), SORT_INDEX integer, VALUE varchar(255), FK_PAGEDETAIL_ID bigint, primary key (CONTEXT_ID)) ENGINE=InnoDB
+2015-01-22 19:40:12,712 ERROR - HHH000389: Unsuccessful: create table CONTEXT (CONTEXT_ID bigint not null auto_increment, CONTEXT_TYPE varchar(255), SORT_INDEX integer, VALUE varchar(255), FK_PAGEDETAIL_ID bigint, primary key (CONTEXT_ID)) ENGINE=InnoDB
+2015-01-22 19:40:12,713 ERROR - Table 'context' already exists
+2015-01-22 19:40:12,714 DEBUG - create table PAGEDETAILS (PAGE_ID bigint not null, DATE varchar(255), PAGE_NAME varchar(255), VISIBLE bit, primary key (PAGE_ID)) ENGINE=InnoDB
+2015-01-22 19:40:12,716 ERROR - HHH000389: Unsuccessful: create table PAGEDETAILS (PAGE_ID bigint not null, DATE varchar(255), PAGE_NAME varchar(255), VISIBLE bit, primary key (PAGE_ID)) ENGINE=InnoDB
+2015-01-22 19:40:12,716 ERROR - Table 'pagedetails' already exists
+2015-01-22 19:40:12,717 DEBUG - create table PAGES (PAGE_ID bigint not null auto_increment, FK_CATEGORY_ID integer, primary key (PAGE_ID)) ENGINE=InnoDB
+2015-01-22 19:40:12,784 DEBUG - create table PAGES_TAGS (TAG_ID integer not null, PAGE_ID bigint not null, primary key (PAGE_ID, TAG_ID)) ENGINE=InnoDB
+2015-01-22 19:40:12,859 DEBUG - create table TAGS (TAG_ID integer not null auto_increment, TAG_NAME varchar(255), primary key (TAG_ID)) ENGINE=InnoDB
+2015-01-22 19:40:12,937 DEBUG - create table USERS (USER_ID integer not null auto_increment, USER_NAME varchar(255), user_pass varchar(255), primary key (USER_ID)) ENGINE=InnoDB
+2015-01-22 19:40:13,008 DEBUG - alter table CONTEXT add constraint FK_3unrpqgyuks8lch9uvexd2s6h foreign key (FK_PAGEDETAIL_ID) references PAGEDETAILS (PAGE_ID)
+2015-01-22 19:40:13,011 ERROR - HHH000389: Unsuccessful: alter table CONTEXT add constraint FK_3unrpqgyuks8lch9uvexd2s6h foreign key (FK_PAGEDETAIL_ID) references PAGEDETAILS (PAGE_ID)
+2015-01-22 19:40:13,012 ERROR - Key column 'FK_PAGEDETAIL_ID' doesn't exist in table
+2015-01-22 19:40:13,012 DEBUG - alter table PAGES add constraint FK_jsmsh7735jo3jfmwktbyainul foreign key (FK_CATEGORY_ID) references CATEGORIES (CATEGORY_ID)
+2015-01-22 19:40:13,219 DEBUG - alter table PAGES_TAGS add constraint FK_qsvhauih4x5561csf0qa69v0f foreign key (PAGE_ID) references PAGES (PAGE_ID)
+2015-01-22 19:40:13,393 DEBUG - alter table PAGES_TAGS add constraint FK_1q9qi6d73i23bc7pg47kqnwdr foreign key (TAG_ID) references TAGS (TAG_ID)
+2015-01-22 19:40:14,492 DEBUG - insert into CATEGORIES (CATEGORY_NAME) values (?)
+2015-01-22 19:40:14,535 INFO  - saveOrUpdate:Category{category_id=1, category_name='null'}
+2015-01-22 19:40:14,650 INFO  - load:1
+2015-01-22 19:40:14,657 DEBUG - select category0_.CATEGORY_ID as CATEGORY1_0_0_, category0_.CATEGORY_NAME as CATEGORY2_0_0_ from CATEGORIES category0_ where category0_.CATEGORY_ID=?
+2015-01-22 19:40:14,679 DEBUG - select pages0_.FK_CATEGORY_ID as FK_CATEG2_0_0_, pages0_.PAGE_ID as PAGE_ID1_3_0_, pages0_.PAGE_ID as PAGE_ID1_3_1_, pages0_.FK_CATEGORY_ID as FK_CATEG2_3_1_, pagedetail1_.PAGE_ID as PAGE_ID1_2_2_, pagedetail1_.DATE as DATE2_2_2_, pagedetail1_.PAGE_NAME as PAGE_NAM3_2_2_, pagedetail1_.VISIBLE as VISIBLE4_2_2_, page2_.PAGE_ID as PAGE_ID1_3_3_, page2_.FK_CATEGORY_ID as FK_CATEG2_3_3_ from PAGES pages0_ left outer join PAGEDETAILS pagedetail1_ on pages0_.PAGE_ID=pagedetail1_.PAGE_ID left outer join PAGES page2_ on pagedetail1_.PAGE_ID=page2_.PAGE_ID where pages0_.FK_CATEGORY_ID=?
+2015-01-22 19:40:14,734 DEBUG - insert into PAGES (FK_CATEGORY_ID) values (?)
+2015-01-22 19:40:14,755 DEBUG - insert into PAGEDETAILS (DATE, PAGE_NAME, VISIBLE, PAGE_ID) values (?, ?, ?, ?)
+2015-01-22 19:40:14,760 DEBUG - insert into CONTEXT (CONTEXT_TYPE, FK_PAGEDETAIL_ID, SORT_INDEX, VALUE) values (?, ?, ?, ?)
+2015-01-22 19:40:14,761 WARN  - SQL Error: 1054, SQLState: 42S22
+2015-01-22 19:40:14,762 ERROR - Unknown column 'FK_PAGEDETAIL_ID' in 'field list'
+2015-01-22 19:42:33,941 DEBUG - Logging Provider: org.jboss.logging.Log4jLoggerProvider
+2015-01-22 19:42:36,239 DEBUG - alter table CONTEXT drop foreign key FK_3unrpqgyuks8lch9uvexd2s6h
+2015-01-22 19:42:36,242 ERROR - HHH000389: Unsuccessful: alter table CONTEXT drop foreign key FK_3unrpqgyuks8lch9uvexd2s6h
+2015-01-22 19:42:36,242 ERROR - Table 'tigrova.context' doesn't exist
+2015-01-22 19:42:36,243 DEBUG - alter table PAGES drop foreign key FK_jsmsh7735jo3jfmwktbyainul
+2015-01-22 19:42:36,244 ERROR - HHH000389: Unsuccessful: alter table PAGES drop foreign key FK_jsmsh7735jo3jfmwktbyainul
+2015-01-22 19:42:36,245 ERROR - Table 'tigrova.pages' doesn't exist
+2015-01-22 19:42:36,245 DEBUG - alter table PAGES_TAGS drop foreign key FK_qsvhauih4x5561csf0qa69v0f
+2015-01-22 19:42:36,247 ERROR - HHH000389: Unsuccessful: alter table PAGES_TAGS drop foreign key FK_qsvhauih4x5561csf0qa69v0f
+2015-01-22 19:42:36,247 ERROR - Table 'tigrova.pages_tags' doesn't exist
+2015-01-22 19:42:36,252 DEBUG - alter table PAGES_TAGS drop foreign key FK_1q9qi6d73i23bc7pg47kqnwdr
+2015-01-22 19:42:36,253 ERROR - HHH000389: Unsuccessful: alter table PAGES_TAGS drop foreign key FK_1q9qi6d73i23bc7pg47kqnwdr
+2015-01-22 19:42:36,254 ERROR - Table 'tigrova.pages_tags' doesn't exist
+2015-01-22 19:42:36,254 DEBUG - drop table if exists CATEGORIES
+2015-01-22 19:42:36,256 DEBUG - drop table if exists CONTEXT
+2015-01-22 19:42:36,258 DEBUG - drop table if exists PAGEDETAILS
+2015-01-22 19:42:36,261 DEBUG - drop table if exists PAGES
+2015-01-22 19:42:36,264 DEBUG - drop table if exists PAGES_TAGS
+2015-01-22 19:42:36,266 DEBUG - drop table if exists TAGS
+2015-01-22 19:42:36,268 DEBUG - drop table if exists USERS
+2015-01-22 19:42:36,270 DEBUG - create table CATEGORIES (CATEGORY_ID integer not null auto_increment, CATEGORY_NAME varchar(255), primary key (CATEGORY_ID)) ENGINE=InnoDB
+2015-01-22 19:42:36,489 DEBUG - create table CONTEXT (CONTEXT_ID bigint not null auto_increment, CONTEXT_TYPE varchar(255), SORT_INDEX integer, VALUE varchar(255), FK_PAGEDETAIL_ID bigint, primary key (CONTEXT_ID)) ENGINE=InnoDB
+2015-01-22 19:42:36,551 DEBUG - create table PAGEDETAILS (PAGE_ID bigint not null, DATE varchar(255), PAGE_NAME varchar(255), VISIBLE bit, primary key (PAGE_ID)) ENGINE=InnoDB
+2015-01-22 19:42:36,652 DEBUG - create table PAGES (PAGE_ID bigint not null auto_increment, FK_CATEGORY_ID integer, primary key (PAGE_ID)) ENGINE=InnoDB
+2015-01-22 19:42:36,741 DEBUG - create table PAGES_TAGS (TAG_ID integer not null, PAGE_ID bigint not null, primary key (PAGE_ID, TAG_ID)) ENGINE=InnoDB
+2015-01-22 19:42:36,801 DEBUG - create table TAGS (TAG_ID integer not null auto_increment, TAG_NAME varchar(255), primary key (TAG_ID)) ENGINE=InnoDB
+2015-01-22 19:42:36,867 DEBUG - create table USERS (USER_ID integer not null auto_increment, USER_NAME varchar(255), user_pass varchar(255), primary key (USER_ID)) ENGINE=InnoDB
+2015-01-22 19:42:36,925 DEBUG - alter table CONTEXT add constraint FK_3unrpqgyuks8lch9uvexd2s6h foreign key (FK_PAGEDETAIL_ID) references PAGEDETAILS (PAGE_ID)
+2015-01-22 19:42:37,109 DEBUG - alter table PAGES add constraint FK_jsmsh7735jo3jfmwktbyainul foreign key (FK_CATEGORY_ID) references CATEGORIES (CATEGORY_ID)
+2015-01-22 19:42:37,292 DEBUG - alter table PAGES_TAGS add constraint FK_qsvhauih4x5561csf0qa69v0f foreign key (PAGE_ID) references PAGES (PAGE_ID)
+2015-01-22 19:42:37,487 DEBUG - alter table PAGES_TAGS add constraint FK_1q9qi6d73i23bc7pg47kqnwdr foreign key (TAG_ID) references TAGS (TAG_ID)
+2015-01-22 19:42:38,412 DEBUG - insert into CATEGORIES (CATEGORY_NAME) values (?)
+2015-01-22 19:42:38,451 INFO  - saveOrUpdate:Category{category_id=1, category_name='null'}
+2015-01-22 19:42:38,719 INFO  - load:1
+2015-01-22 19:42:38,725 DEBUG - select category0_.CATEGORY_ID as CATEGORY1_0_0_, category0_.CATEGORY_NAME as CATEGORY2_0_0_ from CATEGORIES category0_ where category0_.CATEGORY_ID=?
+2015-01-22 19:42:38,747 DEBUG - select pages0_.FK_CATEGORY_ID as FK_CATEG2_0_0_, pages0_.PAGE_ID as PAGE_ID1_3_0_, pages0_.PAGE_ID as PAGE_ID1_3_1_, pages0_.FK_CATEGORY_ID as FK_CATEG2_3_1_, pagedetail1_.PAGE_ID as PAGE_ID1_2_2_, pagedetail1_.DATE as DATE2_2_2_, pagedetail1_.PAGE_NAME as PAGE_NAM3_2_2_, pagedetail1_.VISIBLE as VISIBLE4_2_2_, page2_.PAGE_ID as PAGE_ID1_3_3_, page2_.FK_CATEGORY_ID as FK_CATEG2_3_3_ from PAGES pages0_ left outer join PAGEDETAILS pagedetail1_ on pages0_.PAGE_ID=pagedetail1_.PAGE_ID left outer join PAGES page2_ on pagedetail1_.PAGE_ID=page2_.PAGE_ID where pages0_.FK_CATEGORY_ID=?
+2015-01-22 19:42:38,754 DEBUG - insert into PAGES (FK_CATEGORY_ID) values (?)
+2015-01-22 19:42:38,778 DEBUG - insert into PAGEDETAILS (DATE, PAGE_NAME, VISIBLE, PAGE_ID) values (?, ?, ?, ?)
+2015-01-22 19:42:38,782 DEBUG - insert into CONTEXT (CONTEXT_TYPE, FK_PAGEDETAIL_ID, SORT_INDEX, VALUE) values (?, ?, ?, ?)
+2015-01-22 19:42:38,786 INFO  - saveOrUpdate:Page{page_id=1}
+2015-01-22 19:42:49,141 DEBUG - Logging Provider: org.jboss.logging.Log4jLoggerProvider
+2015-01-22 19:42:51,546 DEBUG - alter table CONTEXT drop foreign key FK_3unrpqgyuks8lch9uvexd2s6h
+2015-01-22 19:42:51,728 DEBUG - alter table PAGES drop foreign key FK_jsmsh7735jo3jfmwktbyainul
+2015-01-22 19:42:51,912 DEBUG - alter table PAGES_TAGS drop foreign key FK_qsvhauih4x5561csf0qa69v0f
+2015-01-22 19:42:52,086 DEBUG - alter table PAGES_TAGS drop foreign key FK_1q9qi6d73i23bc7pg47kqnwdr
+2015-01-22 19:42:52,247 DEBUG - drop table if exists CATEGORIES
+2015-01-22 19:42:52,279 DEBUG - drop table if exists CONTEXT
+2015-01-22 19:42:52,312 DEBUG - drop table if exists PAGEDETAILS
+2015-01-22 19:42:52,346 DEBUG - drop table if exists PAGES
+2015-01-22 19:42:52,379 DEBUG - drop table if exists PAGES_TAGS
+2015-01-22 19:42:52,412 DEBUG - drop table if exists TAGS
+2015-01-22 19:42:52,455 DEBUG - drop table if exists USERS
+2015-01-22 19:42:52,488 DEBUG - create table CATEGORIES (CATEGORY_ID integer not null auto_increment, CATEGORY_NAME varchar(255), primary key (CATEGORY_ID)) ENGINE=InnoDB
+2015-01-22 19:42:52,544 DEBUG - create table CONTEXT (CONTEXT_ID bigint not null auto_increment, CONTEXT_TYPE varchar(255), SORT_INDEX integer, VALUE varchar(255), FK_PAGEDETAIL_ID bigint, primary key (CONTEXT_ID)) ENGINE=InnoDB
+2015-01-22 19:42:52,602 DEBUG - create table PAGEDETAILS (PAGE_ID bigint not null, DATE varchar(255), PAGE_NAME varchar(255), VISIBLE bit, primary key (PAGE_ID)) ENGINE=InnoDB
+2015-01-22 19:42:52,662 DEBUG - create table PAGES (PAGE_ID bigint not null auto_increment, FK_CATEGORY_ID integer, primary key (PAGE_ID)) ENGINE=InnoDB
+2015-01-22 19:42:52,750 DEBUG - create table PAGES_TAGS (TAG_ID integer not null, PAGE_ID bigint not null, primary key (PAGE_ID, TAG_ID)) ENGINE=InnoDB
+2015-01-22 19:42:52,811 DEBUG - create table TAGS (TAG_ID integer not null auto_increment, TAG_NAME varchar(255), primary key (TAG_ID)) ENGINE=InnoDB
+2015-01-22 19:42:52,878 DEBUG - create table USERS (USER_ID integer not null auto_increment, USER_NAME varchar(255), user_pass varchar(255), primary key (USER_ID)) ENGINE=InnoDB
+2015-01-22 19:42:52,944 DEBUG - alter table CONTEXT add constraint FK_3unrpqgyuks8lch9uvexd2s6h foreign key (FK_PAGEDETAIL_ID) references PAGEDETAILS (PAGE_ID)
+2015-01-22 19:42:53,087 DEBUG - alter table PAGES add constraint FK_jsmsh7735jo3jfmwktbyainul foreign key (FK_CATEGORY_ID) references CATEGORIES (CATEGORY_ID)
+2015-01-22 19:42:53,245 DEBUG - alter table PAGES_TAGS add constraint FK_qsvhauih4x5561csf0qa69v0f foreign key (PAGE_ID) references PAGES (PAGE_ID)
+2015-01-22 19:42:53,386 DEBUG - alter table PAGES_TAGS add constraint FK_1q9qi6d73i23bc7pg47kqnwdr foreign key (TAG_ID) references TAGS (TAG_ID)
+2015-01-22 19:42:54,351 DEBUG - insert into CATEGORIES (CATEGORY_NAME) values (?)
+2015-01-22 19:42:54,388 INFO  - saveOrUpdate:Category{category_id=1, category_name='null'}
+2015-01-22 19:42:54,491 INFO  - load:1
+2015-01-22 19:42:54,498 DEBUG - select category0_.CATEGORY_ID as CATEGORY1_0_0_, category0_.CATEGORY_NAME as CATEGORY2_0_0_ from CATEGORIES category0_ where category0_.CATEGORY_ID=?
+2015-01-22 19:42:54,525 DEBUG - select pages0_.FK_CATEGORY_ID as FK_CATEG2_0_0_, pages0_.PAGE_ID as PAGE_ID1_3_0_, pages0_.PAGE_ID as PAGE_ID1_3_1_, pages0_.FK_CATEGORY_ID as FK_CATEG2_3_1_, pagedetail1_.PAGE_ID as PAGE_ID1_2_2_, pagedetail1_.DATE as DATE2_2_2_, pagedetail1_.PAGE_NAME as PAGE_NAM3_2_2_, pagedetail1_.VISIBLE as VISIBLE4_2_2_, page2_.PAGE_ID as PAGE_ID1_3_3_, page2_.FK_CATEGORY_ID as FK_CATEG2_3_3_ from PAGES pages0_ left outer join PAGEDETAILS pagedetail1_ on pages0_.PAGE_ID=pagedetail1_.PAGE_ID left outer join PAGES page2_ on pagedetail1_.PAGE_ID=page2_.PAGE_ID where pages0_.FK_CATEGORY_ID=?
+2015-01-22 19:42:54,532 DEBUG - insert into PAGES (FK_CATEGORY_ID) values (?)
+2015-01-22 19:42:54,552 DEBUG - insert into PAGEDETAILS (DATE, PAGE_NAME, VISIBLE, PAGE_ID) values (?, ?, ?, ?)
+2015-01-22 19:42:54,556 DEBUG - insert into CONTEXT (CONTEXT_TYPE, FK_PAGEDETAIL_ID, SORT_INDEX, VALUE) values (?, ?, ?, ?)
+2015-01-22 19:42:54,559 INFO  - saveOrUpdate:Page{page_id=1}
+2015-01-22 19:43:07,008 DEBUG - Logging Provider: org.jboss.logging.Log4jLoggerProvider
+2015-01-22 19:43:09,290 DEBUG - alter table CONTEXT drop foreign key FK_3unrpqgyuks8lch9uvexd2s6h
+2015-01-22 19:43:09,746 DEBUG - alter table PAGES drop foreign key FK_jsmsh7735jo3jfmwktbyainul
+2015-01-22 19:43:09,972 DEBUG - alter table PAGES_TAGS drop foreign key FK_qsvhauih4x5561csf0qa69v0f
+2015-01-22 19:43:10,147 DEBUG - alter table PAGES_TAGS drop foreign key FK_1q9qi6d73i23bc7pg47kqnwdr
+2015-01-22 19:43:10,324 DEBUG - drop table if exists CATEGORIES
+2015-01-22 19:43:10,357 DEBUG - drop table if exists CONTEXT
+2015-01-22 19:43:10,398 DEBUG - drop table if exists PAGEDETAILS
+2015-01-22 19:43:10,431 DEBUG - drop table if exists PAGES
+2015-01-22 19:43:10,473 DEBUG - drop table if exists PAGES_TAGS
+2015-01-22 19:43:10,514 DEBUG - drop table if exists TAGS
+2015-01-22 19:43:10,550 DEBUG - drop table if exists USERS
+2015-01-22 19:43:10,588 DEBUG - create table CATEGORIES (CATEGORY_ID integer not null auto_increment, CATEGORY_NAME varchar(255), primary key (CATEGORY_ID)) ENGINE=InnoDB
+2015-01-22 19:43:10,671 DEBUG - create table CONTEXT (CONTEXT_ID bigint not null auto_increment, CONTEXT_TYPE varchar(255), SORT_INDEX integer, VALUE varchar(255), FK_PAGEDETAIL_ID bigint, primary key (CONTEXT_ID)) ENGINE=InnoDB
+2015-01-22 19:43:10,730 DEBUG - create table PAGEDETAILS (PAGE_ID bigint not null, DATE varchar(255), PAGE_NAME varchar(255), VISIBLE bit, primary key (PAGE_ID)) ENGINE=InnoDB
+2015-01-22 19:43:10,830 DEBUG - create table PAGES (PAGE_ID bigint not null auto_increment, FK_CATEGORY_ID integer, primary key (PAGE_ID)) ENGINE=InnoDB
+2015-01-22 19:43:10,904 DEBUG - create table PAGES_TAGS (TAG_ID integer not null, PAGE_ID bigint not null, primary key (PAGE_ID, TAG_ID)) ENGINE=InnoDB
+2015-01-22 19:43:10,963 DEBUG - create table TAGS (TAG_ID integer not null auto_increment, TAG_NAME varchar(255), primary key (TAG_ID)) ENGINE=InnoDB
+2015-01-22 19:43:11,030 DEBUG - create table USERS (USER_ID integer not null auto_increment, USER_NAME varchar(255), user_pass varchar(255), primary key (USER_ID)) ENGINE=InnoDB
+2015-01-22 19:43:11,096 DEBUG - alter table CONTEXT add constraint FK_3unrpqgyuks8lch9uvexd2s6h foreign key (FK_PAGEDETAIL_ID) references PAGEDETAILS (PAGE_ID)
+2015-01-22 19:43:11,314 DEBUG - alter table PAGES add constraint FK_jsmsh7735jo3jfmwktbyainul foreign key (FK_CATEGORY_ID) references CATEGORIES (CATEGORY_ID)
+2015-01-22 19:43:11,506 DEBUG - alter table PAGES_TAGS add constraint FK_qsvhauih4x5561csf0qa69v0f foreign key (PAGE_ID) references PAGES (PAGE_ID)
+2015-01-22 19:43:11,680 DEBUG - alter table PAGES_TAGS add constraint FK_1q9qi6d73i23bc7pg47kqnwdr foreign key (TAG_ID) references TAGS (TAG_ID)
+2015-01-22 19:43:12,505 DEBUG - insert into CATEGORIES (CATEGORY_NAME) values (?)
+2015-01-22 19:43:12,545 INFO  - saveOrUpdate:Category{category_id=1, category_name='null'}
+2015-01-22 19:43:12,687 INFO  - load:1
+2015-01-22 19:43:12,693 DEBUG - select category0_.CATEGORY_ID as CATEGORY1_0_0_, category0_.CATEGORY_NAME as CATEGORY2_0_0_ from CATEGORIES category0_ where category0_.CATEGORY_ID=?
+2015-01-22 19:43:12,734 DEBUG - select pages0_.FK_CATEGORY_ID as FK_CATEG2_0_0_, pages0_.PAGE_ID as PAGE_ID1_3_0_, pages0_.PAGE_ID as PAGE_ID1_3_1_, pages0_.FK_CATEGORY_ID as FK_CATEG2_3_1_, pagedetail1_.PAGE_ID as PAGE_ID1_2_2_, pagedetail1_.DATE as DATE2_2_2_, pagedetail1_.PAGE_NAME as PAGE_NAM3_2_2_, pagedetail1_.VISIBLE as VISIBLE4_2_2_, page2_.PAGE_ID as PAGE_ID1_3_3_, page2_.FK_CATEGORY_ID as FK_CATEG2_3_3_ from PAGES pages0_ left outer join PAGEDETAILS pagedetail1_ on pages0_.PAGE_ID=pagedetail1_.PAGE_ID left outer join PAGES page2_ on pagedetail1_.PAGE_ID=page2_.PAGE_ID where pages0_.FK_CATEGORY_ID=?
+2015-01-22 19:43:12,742 DEBUG - insert into PAGES (FK_CATEGORY_ID) values (?)
+2015-01-22 19:43:12,762 DEBUG - insert into PAGEDETAILS (DATE, PAGE_NAME, VISIBLE, PAGE_ID) values (?, ?, ?, ?)
+2015-01-22 19:43:12,767 DEBUG - insert into CONTEXT (CONTEXT_TYPE, FK_PAGEDETAIL_ID, SORT_INDEX, VALUE) values (?, ?, ?, ?)
+2015-01-22 19:43:12,771 INFO  - saveOrUpdate:Page{page_id=1}
+2015-01-22 20:13:15,565 DEBUG - Logging Provider: org.jboss.logging.Log4jLoggerProvider
+2015-01-22 20:13:17,728 DEBUG - alter table CONTEXT drop foreign key FK_3unrpqgyuks8lch9uvexd2s6h
+2015-01-22 20:13:17,914 DEBUG - alter table PAGES drop foreign key FK_jsmsh7735jo3jfmwktbyainul
+2015-01-22 20:13:18,082 DEBUG - alter table PAGES_TAGS drop foreign key FK_qsvhauih4x5561csf0qa69v0f
+2015-01-22 20:13:18,257 DEBUG - alter table PAGES_TAGS drop foreign key FK_1q9qi6d73i23bc7pg47kqnwdr
+2015-01-22 20:13:18,435 DEBUG - drop table if exists CATEGORIES
+2015-01-22 20:13:18,523 DEBUG - drop table if exists CONTEXT
+2015-01-22 20:13:18,567 DEBUG - drop table if exists PAGEDETAILS
+2015-01-22 20:13:18,596 DEBUG - drop table if exists PAGES
+2015-01-22 20:13:18,634 DEBUG - drop table if exists PAGES_TAGS
+2015-01-22 20:13:18,684 DEBUG - drop table if exists TAGS
+2015-01-22 20:13:18,705 DEBUG - drop table if exists USERS
+2015-01-22 20:13:18,741 DEBUG - create table CATEGORIES (CATEGORY_ID integer not null auto_increment, CATEGORY_NAME varchar(255), primary key (CATEGORY_ID)) ENGINE=InnoDB
+2015-01-22 20:13:18,821 DEBUG - create table CONTEXT (CONTEXT_ID bigint not null auto_increment, CONTEXT_TYPE varchar(255), SORT_INDEX integer, VALUE varchar(255), FK_PAGEDETAIL_ID bigint, primary key (CONTEXT_ID)) ENGINE=InnoDB
+2015-01-22 20:13:18,883 DEBUG - create table PAGEDETAILS (PAGE_ID bigint not null, DATE varchar(255), PAGE_NAME varchar(255), VISIBLE bit, primary key (PAGE_ID)) ENGINE=InnoDB
+2015-01-22 20:13:18,941 DEBUG - create table PAGES (PAGE_ID bigint not null auto_increment, FK_CATEGORY_ID integer, primary key (PAGE_ID)) ENGINE=InnoDB
+2015-01-22 20:13:18,996 DEBUG - create table PAGES_TAGS (TAG_ID integer not null, PAGE_ID bigint not null, primary key (PAGE_ID, TAG_ID)) ENGINE=InnoDB
+2015-01-22 20:13:19,055 DEBUG - create table TAGS (TAG_ID integer not null auto_increment, TAG_NAME varchar(255), primary key (TAG_ID)) ENGINE=InnoDB
+2015-01-22 20:13:19,116 DEBUG - create table USERS (USER_ID integer not null auto_increment, USER_NAME varchar(255), user_pass varchar(255), primary key (USER_ID)) ENGINE=InnoDB
+2015-01-22 20:13:19,172 DEBUG - alter table CONTEXT add constraint FK_3unrpqgyuks8lch9uvexd2s6h foreign key (FK_PAGEDETAIL_ID) references PAGEDETAILS (PAGE_ID)
+2015-01-22 20:13:19,350 DEBUG - alter table PAGES add constraint FK_jsmsh7735jo3jfmwktbyainul foreign key (FK_CATEGORY_ID) references CATEGORIES (CATEGORY_ID)
+2015-01-22 20:13:19,501 DEBUG - alter table PAGES_TAGS add constraint FK_qsvhauih4x5561csf0qa69v0f foreign key (PAGE_ID) references PAGES (PAGE_ID)
+2015-01-22 20:13:19,676 DEBUG - alter table PAGES_TAGS add constraint FK_1q9qi6d73i23bc7pg47kqnwdr foreign key (TAG_ID) references TAGS (TAG_ID)
+2015-01-22 20:13:20,505 DEBUG - insert into CATEGORIES (CATEGORY_NAME) values (?)
+2015-01-22 20:13:20,545 INFO  - saveOrUpdate:Category{category_id=1, category_name='null'}
+2015-01-22 20:13:20,633 INFO  - load:1
+2015-01-22 20:13:20,639 DEBUG - select category0_.CATEGORY_ID as CATEGORY1_0_0_, category0_.CATEGORY_NAME as CATEGORY2_0_0_ from CATEGORIES category0_ where category0_.CATEGORY_ID=?
+2015-01-22 20:13:20,660 DEBUG - select pages0_.FK_CATEGORY_ID as FK_CATEG2_0_0_, pages0_.PAGE_ID as PAGE_ID1_3_0_, pages0_.PAGE_ID as PAGE_ID1_3_1_, pages0_.FK_CATEGORY_ID as FK_CATEG2_3_1_, pagedetail1_.PAGE_ID as PAGE_ID1_2_2_, pagedetail1_.DATE as DATE2_2_2_, pagedetail1_.PAGE_NAME as PAGE_NAM3_2_2_, pagedetail1_.VISIBLE as VISIBLE4_2_2_, page2_.PAGE_ID as PAGE_ID1_3_3_, page2_.FK_CATEGORY_ID as FK_CATEG2_3_3_ from PAGES pages0_ left outer join PAGEDETAILS pagedetail1_ on pages0_.PAGE_ID=pagedetail1_.PAGE_ID left outer join PAGES page2_ on pagedetail1_.PAGE_ID=page2_.PAGE_ID where pages0_.FK_CATEGORY_ID=?
+2015-01-22 20:13:20,667 DEBUG - insert into PAGES (FK_CATEGORY_ID) values (?)
+2015-01-22 20:13:20,687 DEBUG - insert into PAGEDETAILS (DATE, PAGE_NAME, VISIBLE, PAGE_ID) values (?, ?, ?, ?)
+2015-01-22 20:13:20,692 DEBUG - insert into CONTEXT (CONTEXT_TYPE, FK_PAGEDETAIL_ID, SORT_INDEX, VALUE) values (?, ?, ?, ?)
+2015-01-22 20:13:20,704 INFO  - saveOrUpdate:Page{page_id=1}

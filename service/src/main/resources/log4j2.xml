@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration strict="true" status="info">
+    <!-- include this to enable log4j internal debug messages: status="debug" -->
+    <appenders>
+        <appender type="Console" name="STDOUT">
+            <layout type="PatternLayout" pattern="%d %-5p %c - %m%n"/>
+        </appender>
+        <appender type="File" name="File" fileName="/home/kodim/logs/web-log-test.log">
+            <layout type="PatternLayout">
+                <pattern>%d %-5p %c - %m%n</pattern>
+            </layout>
+        </appender>
+        <appender type="File" name="File2" fileName="/home/kodim/logs/mylog.log">
+            <layout type="PatternLayout">
+                <pattern>%d %-5p %c - %m%n</pattern>
+            </layout>
+        </appender>
+    </appenders>
+
+    <loggers>
+        <logger name="org.apache.jsp" level="debug">
+            <appender-ref ref="File"/>
+        </logger>
+        <root level="info">
+            <appender-ref ref="File2"/>
+            <appender-ref ref="STDOUT"/>
+        </root>
+    </loggers>
+
+</configuration>

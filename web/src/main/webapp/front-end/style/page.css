@@ -1,0 +1,42 @@
+.btn_new {
+    background-color: buttonface;
+}
+textarea.sd_textarea, textarea.fd_textarea {
+    width: 100%;
+    maxlength:255;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+textarea.fd_textarea {
+    rows:10;
+}
+input.input_name {
+    width: auto;
+}
+.fd_button {
+    margin: auto;
+}
+a.col-md-3, button.col-md-3 {
+    margin-right: auto;
+    margin-left: auto;
+}
+.fd_buttons {
+    margin-top: 4%;
+}
+.pc_buttons {
+    margin-bottom: auto;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
