@@ -16,7 +16,7 @@
     <script src = "/front-end/js/bootstrap.min.js" type="text/javascript"></script>
 
     <c:set var="page" value="${requestScope.page}" />
-    <c:set var="selected_category"  value="${requestScope.selected_category}" />
+    <c:set var="selected_category"  value="${requestScope.page.category.category_id}" />
     <c:set var="action" value="${requestScope.action}" />
 
     <title>${page.pageDetail.page_name}</title>

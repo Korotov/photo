@@ -72,7 +72,8 @@ public class AdminController {
         Page page = pageService.get(id);
 
         model.put("page", page);
-        model.addAttribute("action", "edit");
+//        model.put("selected_category", page.getCategory().getCategory_id());
+        model.put("action", "edit");
         model.put("categories", categoryService.getCategories());
         return "page";
     }

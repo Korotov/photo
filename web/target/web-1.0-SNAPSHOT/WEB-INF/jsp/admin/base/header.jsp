@@ -7,7 +7,7 @@
 
 
 
-<div class="row">
+<div class="col-md-12">
 
     <div class="col-md-3"><strong>статистика</strong></div>
     <div class="col-md-3"><strong>все пользователи</strong></div>

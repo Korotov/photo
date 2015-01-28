@@ -72,13 +72,11 @@ public class PageController {
         long page_id = Long.parseLong(id);
         int ctg_id = Integer.parseInt(category_id);
 
-
-
         Page page = pageService.get(page_id);
         Category category = categoryService.get(ctg_id);
 
         page.setCategory(category);
-        category.getPages().add(page);
+//        category.getPages().add(page);
 
         pageService.update(page);
 
