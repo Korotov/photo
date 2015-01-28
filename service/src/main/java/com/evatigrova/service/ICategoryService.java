@@ -10,6 +10,8 @@ public interface ICategoryService  {
 
     public Category load(int id);
 
+    public Category get(int id);
+
     public void save(Category category);
 
     public void update(Category category);

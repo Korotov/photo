@@ -25,13 +25,12 @@ public class PageController {
     @Autowired(required = true)
     public IPageService pageService;
 
-    @RequestMapping(value = "/admin/page/add", method = RequestMethod.POST)
-    public String mainPage(
+    @RequestMapping(value = "/admin/page/add", method = RequestMethod.GET)
+    public String addPage(
             @RequestParam(value = "id", required = false) String id,
             @RequestParam(value = "name") String name,
             @RequestParam(value = "category") String category_id,
             @RequestParam(value = "date") String date,
-            @RequestParam(value = "action") String action,
             ModelMap model){
 
         Page page = new Page();
@@ -53,19 +52,44 @@ public class PageController {
         pageDetail.setDate(date);
         pageDetail.setPage_name(name);
 
-        int page_id;
-        if ( id!=null&&(!("".equals(id))) ) {
-            page_id = Integer.parseInt(id);
-            page.setPage_id(page_id);
-        }
-
-
         pageService.save(page);
 
         return "redirect:/admin";
+
+
     }
 
-    @RequestMapping(value = "/admin/page/cancel", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/page/edit", method = RequestMethod.GET)
+    public String editPage(
+            @RequestParam(value = "id", required = true) String id,
+            @RequestParam(value = "name") String name,
+            @RequestParam(value = "category") String category_id,
+            @RequestParam(value = "date") String date,
+            ModelMap model){
+
+
+
+        long page_id = Long.parseLong(id);
+        int ctg_id = Integer.parseInt(category_id);
+
+
+
+        Page page = pageService.get(page_id);
+        Category category = categoryService.get(ctg_id);
+
+        page.setCategory(category);
+        category.getPages().add(page);
+
+        pageService.update(page);
+
+        return "redirect:/admin";
+
+    }
+
+
+
+
+    @RequestMapping(value = "/admin/page/cancel", method = RequestMethod.GET)
     public String mainPage(
             ModelMap model){
         return "redirect:/admin";

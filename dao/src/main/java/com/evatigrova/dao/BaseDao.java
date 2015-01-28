@@ -36,7 +36,7 @@ public class BaseDao<T> implements Dao<T> {
         if (sessionFactory!=null){
             return sessionFactory.getCurrentSession();
         }
-        else return sessionFactory.openSession();
+        return sessionFactory.openSession();
     }
 
     @Override
@@ -60,6 +60,13 @@ public class BaseDao<T> implements Dao<T> {
     @Override
     public T load(Class<T> clazz, Serializable id) {
         T t = (T) getSession().load(clazz, id);
+        log.info("load:" + id);
+        return t;
+    }
+
+    @Override
+    public T get(Class<T> clazz, Serializable id) {
+        T t = (T) getSession().get(clazz, id);
         log.info("load:" + id);
         return t;
     }

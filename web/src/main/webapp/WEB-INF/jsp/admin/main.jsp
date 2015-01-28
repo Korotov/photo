@@ -15,7 +15,7 @@
 
     <!-- SEARCH -->
     <div class="col-md-12">
-        <form id="select" method="post">
+        <form id="select" method="get">
 
         <table class="table table-bordered searchTable">
             <tr>
@@ -110,7 +110,7 @@
 
 
     <!-- TABLE W/PAGES -->
-    <div class="category1">
+    <div class="category1 col-md-12">
 
         <table class="table table-bordered resultTable" >
             <tr>
@@ -168,11 +168,33 @@
     </div>
 
     <!--PAGINATION -->
-    <div class="pages">
+    <div class="pages col-md-12">
         <a class="main_a"  href="/admin/action.jsp?action=select&page=previous&category_id=${selected_category}&search_page=${requestScope.search_page}" onClick="${requestScope.prev_st}" class="page btn btn_new"><<<</a>
         <button class="page btn btn_new" type="submit">${requestScope.search_page}</button>
         <a class="main_a"  href="/admin/action.jsp?action=select&page=next&category_id=${selected_category}&search_page=${requestScope.search_page}" onClick="${requestScope.next_st}" class="page btn btn_new">>>></a>
 
+    </div>
+
+    <div class="col-md-12">
+            <nav style="margin: auto; width: 250px">
+                <ul class="pagination">
+                    <li>
+                        <a href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li>
+                        <a href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
     </div>
 
 </div>

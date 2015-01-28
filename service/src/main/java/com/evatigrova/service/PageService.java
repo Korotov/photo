@@ -9,6 +9,7 @@ import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
@@ -113,10 +114,31 @@ public class PageService  implements IPageService {
         page.setCategory(category);
         category.getPages().add(page);
 
-        pageDao.saveOrUpdate(page);
+        pageDao.save(page);
 
         return true;
     }
+
+    @Override
+    public boolean update(Page page) {
+
+        int id = page.getCategory().getCategory_id();
+        Category category;
+
+        category = categoryDao.load(Category.class, id);
+
+        Page persistentPage = pageDao.get(Page.class, page.getPage_id());
+
+
+        persistentPage.setCategory(category);
+        category.getPages().add(persistentPage);
+
+        pageDao.update(persistentPage);
+
+        return true;
+    }
+
+
 
     /**
      *  Delete page
@@ -151,13 +173,26 @@ public class PageService  implements IPageService {
     }
 
     /**
+     * get page by id
+     * @param id
+     * @return
+     */
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    @Override
+    public Page get(long id) {
+        return pageDao.get(Page.class, id);
+    }
+
+    /**
      * Load page by id
      * @param id
      * @return
      */
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     @Override
     public Page load(long id) {
-        Page page = pageDao.load(Page.class, id);
-        return pageDao.merge(page);
+        return pageDao.load(Page.class, id);
     }
+
+
 }

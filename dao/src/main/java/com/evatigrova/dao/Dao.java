@@ -13,13 +13,19 @@ import java.util.List;
 public interface Dao<T> {
     Session getSession();
 
+    //** create update
+
     void saveOrUpdate(T t);
 
     public void save(T t);
 
     public void update(T t);
 
+    //** read
+
     T load(Class<T> clazz, Serializable id) ;
+
+    public T get(Class<T> clazz, Serializable id);
 
     public List<T> selectByCriteria(Criteria criteria);
 
@@ -27,12 +33,11 @@ public interface Dao<T> {
 
     public List<T> selectAll();
 
-    public void refresh(T t);
-
     public T merge(T t);
 
+    public void refresh(T t);
 
-
+    //** delete
 
     void delete(T t);
 

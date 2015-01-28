@@ -18,7 +18,7 @@ public class Page implements Serializable{
     @Column(name = "PAGE_ID")
     private long page_id;
 
-    @OneToOne(mappedBy = "page", cascade = CascadeType.ALL)
+    @OneToOne(fetch=FetchType.EAGER, mappedBy = "page", cascade = CascadeType.ALL)
     private PageDetail pageDetail;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})

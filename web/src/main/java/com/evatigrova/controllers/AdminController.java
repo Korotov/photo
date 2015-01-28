@@ -57,7 +57,7 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @RequestMapping(value = "admin/new", method = RequestMethod.POST)
+    @RequestMapping(value = "admin/new", method = RequestMethod.GET)
     public String newPage( ModelMap model) {
         model.addAttribute("action", "add");
         model.put("categories", categoryService.getCategories());
@@ -69,7 +69,7 @@ public class AdminController {
             @RequestParam(value = "id" ) long id,
             ModelMap model) {
 
-        Page page = pageService.load(id);
+        Page page = pageService.get(id);
 
         model.put("page", page);
         model.addAttribute("action", "edit");

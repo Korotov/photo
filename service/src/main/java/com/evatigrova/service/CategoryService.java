@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -40,10 +41,19 @@ public class CategoryService implements ICategoryService{
         categoryDao.update(category);
     }
 
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    @Override
     public Category load(int id) {
         return categoryDao.load(Category.class, id);
     }
 
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    @Override
+    public Category get(int id) {
+        return categoryDao.get(Category.class, id);
+    }
+
+    @Override
     public List<Category> getCategories() {
         String selectAllCategories = "SELECT C FROM com.evatigrova.beans.Category C ORDER BY C.category_name ASC";
         Query query = categoryDao.getSession().createQuery(selectAllCategories);
