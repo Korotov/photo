@@ -8,6 +8,7 @@ import com.evatigrova.service.IPageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,7 +33,7 @@ public class AdminController {
         return "admin";
     }
 
-    @RequestMapping(value = "admin/add_category", method = RequestMethod.GET)
+    @RequestMapping(value = "admin/add/category", method = RequestMethod.GET)
     public String manageCategory(@RequestParam(value = "category_edit", required = false) String category_id,
                               @RequestParam("action") String action,
                               @RequestParam("category_name") String category_name,
@@ -57,22 +58,22 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @RequestMapping(value = "admin/new", method = RequestMethod.GET)
+    @RequestMapping(value = "admin/new/page", method = RequestMethod.POST)
     public String newPage( ModelMap model) {
-        model.addAttribute("action", "add");
+        model.put("action", "add");
         model.put("categories", categoryService.getCategories());
         return "page";
     }
 
-    @RequestMapping(value = "admin/edit", method = RequestMethod.GET)
+    @RequestMapping(value = "admin/edit/page/{id}", method = RequestMethod.GET)
     public String editPage(
-            @RequestParam(value = "id" ) long id,
+//            @RequestParam(value = "id" ) long id,
+            @PathVariable long id,
             ModelMap model) {
 
         Page page = pageService.get(id);
 
         model.put("page", page);
-//        model.put("selected_category", page.getCategory().getCategory_id());
         model.put("action", "edit");
         model.put("categories", categoryService.getCategories());
         return "page";

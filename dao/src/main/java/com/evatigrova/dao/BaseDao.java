@@ -54,6 +54,7 @@ public class BaseDao<T> implements Dao<T> {
     @Override
     public void update(T t) {
         getSession().update(t);
+        getSession().flush();
         log.info("update:" + t );
     }
 

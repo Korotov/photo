@@ -50,8 +50,7 @@
                     <strong>Добавить статью</strong>
                 </td>
                 <td>
-                    <button form="select" formaction="/admin/new" type="submit" class="btn btn_new">Добавить</button>
-                    <%--<a class="btn btn_new" href="/admin/new" type="submit">Добавить</a>--%>
+                    <button form="select" formaction="/admin/new/page" type="submit" formmethod="post" class="btn btn_new">Добавить</button>
                 </td>
             </tr>
         </table>
@@ -61,7 +60,7 @@
 
     <!-- ACTIONS W/CATEGORY -->
     <div class="col-md-12 editTable">
-        <form id="category" method="get"  action="/admin/add_category">
+        <form id="category" method="get"  action="/admin/add/category">
 
             <table class="table table-bordered ">
                 <tr>
@@ -99,7 +98,7 @@
                         <input name="category_name" type="text" placeholder="поле для названия" />
                     </td>
                     <td>
-                        <button class="btn btn_new" form="category" formaction="/admin/add_category" type="submit">Применить</button>
+                        <button class="btn btn_new" form="category" formaction="/admin/add/category" type="submit">Применить</button>
 
                     </td>
                 </tr>
@@ -128,7 +127,7 @@
                 <td><c:out value="${page.pageDetail.date}" /></td>
                     <%--Page name--%>
                 <td>
-                    <a href="/admin/edit?id=${page.getPage_id()}">
+                    <a href="/admin/edit/page/${page.getPage_id()}">
                         <c:out value="${page.pageDetail.getPage_name()}" />
                     </a>
                 </td>

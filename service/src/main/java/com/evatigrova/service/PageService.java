@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -123,22 +124,20 @@ public class PageService  implements IPageService {
     public boolean update(Page page) {
 
         int id = page.getCategory().getCategory_id();
-        Category category;
 
-        category = categoryDao.load(Category.class, id);
-
-        Page persistentPage = pageDao.get(Page.class, page.getPage_id());
-
+        Category category = categoryDao.load(Category.class, id);
+        Page persistentPage = load(page.getPage_id());
 
         persistentPage.setCategory(category);
         category.getPages().add(persistentPage);
+
+        persistentPage.getPageDetail().setPage_name(page.getPageDetail().getPage_name());
+        persistentPage.getPageDetail().setDate(page.getPageDetail().getDate());
 
         pageDao.update(persistentPage);
 
         return true;
     }
-
-
 
     /**
      *  Delete page
@@ -192,6 +191,31 @@ public class PageService  implements IPageService {
     @Override
     public Page load(long id) {
         return pageDao.load(Page.class, id);
+    }
+
+    /**
+     * Create transient object that will
+     * be used as DTO to service layer
+     * @return
+     */
+    @Override
+    public Page createDtoPage(){
+        Page page = new Page();
+        Category category = new Category();
+
+        PageDetail pageDetail = new PageDetail();
+        Set<Page> pages = new HashSet<Page>();
+
+
+
+        page.setCategory(category);
+        category.setPages(pages);
+        category.getPages().add(page);
+
+        page.setPageDetail(pageDetail);
+        pageDetail.setPage(page);
+
+        return page;
     }
 
 
