@@ -8,9 +8,9 @@ public interface IPageService  {
 
     public Page createDtoPage();
 
-    public List<Page> getPagesByCategory(int category_id);
+    public List<Page> getAllPages(String search_result, String category, int maxPages);
 
-    public List<Page> getAllPages(int search_page_id, int maxPages);
+    public List<Page> getAllPages(String search_result, int maxPages);
 
     public List<Page> getAllPages(int maxPages);
 

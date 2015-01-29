@@ -43,7 +43,7 @@
                     <input class="select" type="text" placeholder="введите тег" />
                 </td>
                 <td>
-                    <button form="select" formaction="/admin/action.jsp?action=select" type="submit" class="btn btn_new">Применить</button>
+                    <button form="select" formaction="/admin" type="submit" class="btn btn_new">Применить</button>
                 </td>
 
                 <td>

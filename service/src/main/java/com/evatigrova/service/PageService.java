@@ -34,15 +34,6 @@ public class PageService  implements IPageService {
     public PageService() {
     }
 
-
-
-    public List<Page> getPagesByCategory(int category_id) {
-        String selectPagesByCategory = "FROM com.evatigrova.beans.Page P WHERE P.category.category_id=:id ORDER BY P.date DESC";
-        Query query = pageDao.getSession().createQuery(selectPagesByCategory);
-        query.setParameter("id", category_id);
-        return pageDao.selectByHQL(query);
-    }
-
     /**
      * This method create Criteria for
      * showing methods
@@ -62,17 +53,33 @@ public class PageService  implements IPageService {
         return criteria;
     }
 
+
     /**
      *
-     * @param search_page_id
+     * @param search_result
+     * @param category
      * @param maxPages
      * @return
      */
     @Override
-    public List<Page> getAllPages(int search_page_id, int maxPages){
+    public List<Page> getAllPages(String search_result, String category, int maxPages){
+        Integer search_page_id = Integer.parseInt(search_result);
+        Integer category_id = Integer.parseInt(category);
+
+        Criteria criteria = paginationCriteria(search_page_id, maxPages);
+        criteria.add(Restrictions.eq("category.category_id", category_id));
+        return pageDao.selectByCriteria(criteria);
+    }
+
+    @Override
+    public List<Page> getAllPages(String search_result, int maxPages){
+        Integer search_page_id = Integer.parseInt(search_result);
+
         Criteria criteria = paginationCriteria(search_page_id, maxPages);
         return pageDao.selectByCriteria(criteria);
     }
+
+
 
     /**
      * select and return pages for first page list
