@@ -1,4 +1,4 @@
-package com.evatigrova.service;
+package com.evatigrova.services;
 
 import com.evatigrova.beans.User;
 

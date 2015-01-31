@@ -13,7 +13,7 @@
 
     <import resource="classpath*:dao-beans.xml"/>
 
-    <context:component-scan base-package="com.evatigrova.service"/>
+    <context:component-scan base-package="com.evatigrova"/>
 
     <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"/>

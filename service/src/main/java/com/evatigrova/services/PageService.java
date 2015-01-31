@@ -1,7 +1,9 @@
-package com.evatigrova.service;
+package com.evatigrova.services;
 
 import com.evatigrova.beans.*;
 import com.evatigrova.dao.Dao;
+import com.evatigrova.utils.IPager;
+import com.evatigrova.utils.Pager;
 import org.apache.commons.lang.Validate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,6 +32,11 @@ public class PageService  implements IPageService {
 
     @Autowired(required = true)
     private Dao<Category> categoryDao;
+
+    @Autowired(required = true)
+    private IPager pager;
+
+
 
     public PageService() {
     }
@@ -177,7 +184,7 @@ public class PageService  implements IPageService {
 
     /**
      * Create transient object that will
-     * be used as DTO to service layer
+     * be used as DTO to services layer
      * @return
      */
     @Override

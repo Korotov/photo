@@ -3,8 +3,8 @@ package com.evatigrova.controllers;
 
 import com.evatigrova.beans.Category;
 import com.evatigrova.beans.Page;
-import com.evatigrova.service.ICategoryService;
-import com.evatigrova.service.IPageService;
+import com.evatigrova.services.ICategoryService;
+import com.evatigrova.services.IPageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -37,7 +37,7 @@ public class AdminController {
             @RequestParam(value = "search_page", required = false) String search,
             ModelMap model){
 
-        String search_page="0";
+        String search_page="1";
 
         if (search!=null&&!search.equals("")) {
             search_page=search;

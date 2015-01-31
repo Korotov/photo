@@ -2,8 +2,8 @@ package com.evatigrova.controllers;
 
 
 import com.evatigrova.beans.Page;
-import com.evatigrova.service.ICategoryService;
-import com.evatigrova.service.IPageService;
+import com.evatigrova.services.ICategoryService;
+import com.evatigrova.services.IPageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

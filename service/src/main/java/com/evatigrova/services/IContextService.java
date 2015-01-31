@@ -1,4 +1,4 @@
-package com.evatigrova.service;
+package com.evatigrova.services;
 
 public interface IContextService  {
 
