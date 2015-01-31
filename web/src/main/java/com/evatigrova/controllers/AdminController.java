@@ -26,30 +26,36 @@ public class AdminController {
     @Autowired(required = true)
     public IPageService pageService;
 
+    @RequestMapping(value = "/admin", method = RequestMethod.HEAD)
+    public String mainPage1(ModelMap model){
+        return "admin";
+    }
+
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String mainPage(
             @RequestParam(value = "category_id", required = false) String category_id,
-            @RequestParam(value = "search", required = false) String search,
+            @RequestParam(value = "search_page", required = false) String search,
             ModelMap model){
 
-        String result_search="0";
+        String search_page="0";
 
         if (search!=null&&!search.equals("")) {
-            result_search=search;
+            search_page=search;
         }
         List<Page> pageList;
+
         if ( category_id!=null&&(!"".equals(category_id)) ) {
-            pageList = pageService.getAllPages(result_search, category_id, pageSize);
+            pageList = pageService.getAllPages(search_page, category_id, pageSize);
             model.put("sel_ctg", category_id);
         }
         else {
-            pageList = pageService.getAllPages(result_search, pageSize);
+            pageList = pageService.getAllPages(search_page, pageSize);
         }
 
 
         model.put("categories", categoryService.getCategories());
         model.put("pageList", pageList);
-        model.put("search", result_search);
+        model.put("search_page", search_page);
 
         return "admin";
     }

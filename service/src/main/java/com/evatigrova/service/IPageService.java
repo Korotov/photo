@@ -12,8 +12,6 @@ public interface IPageService  {
 
     public List<Page> getAllPages(String search_result, int maxPages);
 
-    public List<Page> getAllPages(int maxPages);
-
     public boolean save(Page page);
 
     public boolean update(Page page);

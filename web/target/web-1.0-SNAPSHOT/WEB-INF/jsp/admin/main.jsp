@@ -10,6 +10,8 @@
 <link rel = "stylesheet" href="/front-end/style/bootstrap.min.css" />
 <%--<link rel = "stylesheet" href="/front-end/style/main.css" />--%>
 <meta charset="UTF-8">
+<c:set var="selected_category"  value="${requestScope.sel_ctg}" />
+
 <div class="allPage">
 
 
@@ -24,8 +26,6 @@
                 </td>
                 <td>категория</td>
                 <td>
-                    <c:set var="selected_category"  value="${requestScope.sel_ctg}" />
-
                     <select class="select" name="category_id">
                         <option  readonly="readonly" value="">Все категории</option>
                         <c:forEach var="category" items="${requestScope.categories}">
@@ -43,7 +43,7 @@
                     <input class="select" type="text" placeholder="введите тег" />
                 </td>
                 <td>
-                    <button form="select" formaction="/admin/action.jsp?action=select" type="submit" class="btn btn_new">Применить</button>
+                    <button form="select" formaction="/admin" type="submit" class="btn btn_new">Применить</button>
                 </td>
 
                 <td>
@@ -81,8 +81,6 @@
                         Категория
                     </td>
                     <td>
-                        <c:set var="selected_category"  value="${requestScope.sel_ctg}" />
-
                         <select class="select" name="category_edit">
                             <c:forEach var="category" items="${requestScope.categories}">
                                 <c:if test="${category.category_id==selected_category}">

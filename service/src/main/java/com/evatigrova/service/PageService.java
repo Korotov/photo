@@ -2,10 +2,10 @@ package com.evatigrova.service;
 
 import com.evatigrova.beans.*;
 import com.evatigrova.dao.Dao;
+import org.apache.commons.lang.Validate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -64,9 +64,11 @@ public class PageService  implements IPageService {
     @Override
     public List<Page> getAllPages(String search_result, String category, int maxPages){
         Integer search_page_id = Integer.parseInt(search_result);
+        Criteria criteria = paginationCriteria(search_page_id, maxPages);
+        Validate.notEmpty(category);
+
         Integer category_id = Integer.parseInt(category);
 
-        Criteria criteria = paginationCriteria(search_page_id, maxPages);
         criteria.add(Restrictions.eq("category.category_id", category_id));
         return pageDao.selectByCriteria(criteria);
     }
@@ -76,33 +78,6 @@ public class PageService  implements IPageService {
         Integer search_page_id = Integer.parseInt(search_result);
 
         Criteria criteria = paginationCriteria(search_page_id, maxPages);
-        return pageDao.selectByCriteria(criteria);
-    }
-
-
-
-    /**
-     * select and return pages for first page list
-     * @param maxPages
-     * @return
-     */
-    @Override
-    public List<Page> getAllPages(int maxPages) {
-        Criteria criteria = paginationCriteria(0, maxPages);
-        return pageDao.selectByCriteria(criteria);
-    }
-
-    /**
-     * This method returns pages, selected by
-     * category_id and search page list
-     * @param search_page_id
-     * @param maxPages
-     * @param ctg_id
-     * @return
-     */
-    public List<Page> showPagesByCategory(int search_page_id, int maxPages, int category_id){
-        Criteria criteria = paginationCriteria(search_page_id, maxPages);
-        criteria.add(Restrictions.eq("category.category_id", category_id));
         return pageDao.selectByCriteria(criteria);
     }
 
@@ -212,8 +187,6 @@ public class PageService  implements IPageService {
 
         PageDetail pageDetail = new PageDetail();
         Set<Page> pages = new HashSet<Page>();
-
-
 
         page.setCategory(category);
         category.setPages(pages);
