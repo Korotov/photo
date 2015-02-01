@@ -43,21 +43,29 @@ public class AdminController {
             search_page=search;
         }
         List<Page> pageList;
+        List paginationList;
+        long numberOfPages = pageService.selectNumberOfPages(category_id);
+
+        int search_int = Integer.parseInt(search_page);
+        int bigSize = (int)Math.ceil((numberOfPages-1)/pageSize)+1;
+        if (search_int >bigSize) {
+            search_int =bigSize;
+        }
+        if(search_int <1) {
+            search_int =1;
+        }
+        pageList = pageService.getAllPages(search_int, category_id, pageSize);
 
         if ( category_id!=null&&(!"".equals(category_id)) ) {
-            pageList = pageService.getAllPages(search_page, category_id, pageSize);
             model.put("sel_ctg", category_id);
         }
-        else {
-            pageList = pageService.getAllPages(search_page, pageSize);
-        }
 
-        List paginationList = pageService.getPaginationList(search_page, pageSize);
+        paginationList = pageService.getPaginationList(search_int, pageSize, numberOfPages);
 
         model.put("pagination",paginationList);
         model.put("categories", categoryService.getCategories());
         model.put("pageList", pageList);
-        model.put("search_page", search_page);
+        model.put("search_page", search_int);
 
         return "admin";
     }

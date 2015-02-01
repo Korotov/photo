@@ -31,10 +31,9 @@ public class Pager implements IPager{
         if (search_int<1){
             search_int=1;
         }
-        if (search_int>numberOfPages) {
-            search_int=(int)numberOfPages;
+        if (search_int>bigSize) {
+            search_int=bigSize;
         }
-
         list.add(search_int);
 
         int size = bigSize;

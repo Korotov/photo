@@ -3,20 +3,21 @@ package com.evatigrova.services;
 import com.evatigrova.beans.*;
 import com.evatigrova.dao.Dao;
 import com.evatigrova.utils.IPager;
-import com.evatigrova.utils.Pager;
 import org.apache.commons.lang.Validate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -66,24 +67,24 @@ public class PageService  implements IPageService {
      * @return
      */
     @Override
-    public List<Page> getAllPages(String search_result, String category, int maxPages){
-        Integer search_page_id = Integer.parseInt(search_result);
-        Criteria criteria = CriteriaForSelect(search_page_id, maxPages);
-        Validate.notEmpty(category);
+    public List<Page> getAllPages(int search_int, String category, int maxPages){
 
-        Integer category_id = Integer.parseInt(category);
+        Criteria criteria = CriteriaForSelect(search_int, maxPages);
 
-        criteria.add(Restrictions.eq("category.category_id", category_id));
+        if ( !("".equals(category)||(category==null))) {
+            Integer category_id = Integer.parseInt(category);
+            criteria.add(Restrictions.eq("category.category_id", category_id));
+        }
+
         return pageDao.selectByCriteria(criteria);
     }
 
-    @Override
-    public List<Page> getAllPages(String search_result, int maxPages){
-        Integer search_page_id = Integer.parseInt(search_result);
-
-        Criteria criteria = CriteriaForSelect(search_page_id, maxPages);
-        return pageDao.selectByCriteria(criteria);
-    }
+//    @Override
+//    public List<Page> getAllPages(int search_int, int maxPages){
+//
+//        Criteria criteria = CriteriaForSelect(search_int, maxPages);
+//        return pageDao.selectByCriteria(criteria);
+//    }
 
     /**
      * Save page
@@ -203,23 +204,30 @@ public class PageService  implements IPageService {
     }
 
     @Override
-    public List<Integer> getPaginationList(String search_page, int pageSize) {
-        long numberOfPages = selectNumberOfPages();
-
-        int search_int = Integer.parseInt(search_page);
+    public List<Integer> getPaginationList(int search_int, int pageSize, long numberOfPages) {
+//        long numberOfPages = selectNumberOfPages();
 
         return pager.getList(numberOfPages, search_int, pageSize);
     }
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     @Override
-    public Long selectNumberOfPages() {
-
-        String hql = "SELECT count(page_id) FROM com.evatigrova.beans.Page";
-        Query query = pageDao.getSession().createQuery(hql);
+    public Long selectNumberOfPages(String category) {
+        Query query;
+        if ( ("".equals(category))||(category==null) ) {
+            String hql = "SELECT count(page_id) FROM com.evatigrova.beans.Page ";
+            query = pageDao.getSession().createQuery(hql);
+        }
+        else {
+            int category_id = Integer.parseInt(category);
+            String hql = "SELECT count(page_id) FROM com.evatigrova.beans.Page P WHERE P.category.category_id=:id";
+            query = pageDao.getSession().createQuery(hql);
+            query.setParameter("id", category_id);
+        }
 
         return pageDao.selectUniqueByHQL(query);
     }
+
 
 
 }
