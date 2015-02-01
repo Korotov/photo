@@ -52,9 +52,9 @@ public class AdminController {
             pageList = pageService.getAllPages(search_page, pageSize);
         }
 
+        List paginationList = pageService.getPaginationList(search_page, pageSize);
 
-
-
+        model.put("pagination",paginationList);
         model.put("categories", categoryService.getCategories());
         model.put("pageList", pageList);
         model.put("search_page", search_page);

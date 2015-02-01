@@ -13,7 +13,7 @@ import java.util.List;
 public class Pager implements IPager{
 
     public int size(long numberOfPages, int pageSize) {
-        return (int)Math.ceil(numberOfPages/pageSize);
+        return (int)Math.ceil((numberOfPages-1)/pageSize)+1;
     }
 
     /**
@@ -28,6 +28,13 @@ public class Pager implements IPager{
         //**bigSize - number of all pageLists
         int bigSize = size(numberOfPages, pageSize);
         List<Integer> list = new ArrayList<Integer>(5);
+        if (search_int<1){
+            search_int=1;
+        }
+        if (search_int>numberOfPages) {
+            search_int=(int)numberOfPages;
+        }
+
         list.add(search_int);
 
         int size = bigSize;
@@ -44,13 +51,13 @@ public class Pager implements IPager{
             if(elem1>=1) {
                 list.add(elem1);
             }
-            if (list.size()==size) break;
+            if (list.size()>=size) break;
 
             int elem2 = search_int+step;
             if(elem2<=bigSize) {
                 list.add(elem2);
             }
-            if (list.size()==size) break;
+            if (list.size()>=size) break;
         }
         Collections.sort(list, new IntComparator());
 

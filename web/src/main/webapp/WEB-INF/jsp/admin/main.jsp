@@ -11,6 +11,7 @@
 <%--<link rel = "stylesheet" href="/front-end/style/main.css" />--%>
 <meta charset="UTF-8">
 <c:set var="selected_category"  value="${requestScope.sel_ctg}" />
+<c:set var="search_page"  value="${requestScope.search_page}" />
 
 <div class="allPage">
 
@@ -176,17 +177,24 @@
             <nav style="margin: auto; width: 250px">
                 <ul class="pagination">
                     <li>
-                        <a href="#" aria-label="Previous">
+                        <a href="/admin?category_id=${selected_category}&search_page=${search_page-1}" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
+                    <c:forEach var="pg" items="${requestScope.pagination}">
+                        <c:if test="${pg == search_page}">
+                            <li class="active"><a href="/admin?category_id=${selected_category}&search_page=${pg}">${pg}</a></li>
+                        </c:if>
+                        <c:if test="${pg != search_page}">
+                            <li><a href="/admin?category_id=${selected_category}&search_page=${pg}">${pg}</a></li>
+                        </c:if>
+                    </c:forEach>
+                    <%--<li><a href="#">2</a></li>--%>
+                    <%--<li><a href="#">3</a></li>--%>
+                    <%--<li><a href="#">4</a></li>--%>
+                    <%--<li><a href="#">5</a></li>--%>
                     <li>
-                        <a href="#" aria-label="Next">
+                        <a href="/admin?category_id=${selected_category}&search_page=${search_page+1}" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>

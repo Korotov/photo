@@ -202,6 +202,7 @@ public class PageService  implements IPageService {
         return page;
     }
 
+    @Override
     public List<Integer> getPaginationList(String search_page, int pageSize) {
         long numberOfPages = selectNumberOfPages();
 
@@ -214,11 +215,10 @@ public class PageService  implements IPageService {
     @Override
     public Long selectNumberOfPages() {
 
-        String hql = "SELECT count(page_id) FROM com.evatigrova.Page";
+        String hql = "SELECT count(page_id) FROM com.evatigrova.beans.Page";
         Query query = pageDao.getSession().createQuery(hql);
 
-        Long results = pageDao.selectUniqueByHQL(query);
-        return results;
+        return pageDao.selectUniqueByHQL(query);
     }
 
 

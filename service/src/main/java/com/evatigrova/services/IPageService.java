@@ -12,6 +12,8 @@ public interface IPageService  {
 
     public List<Page> getAllPages(String search_result, int maxPages);
 
+    public List<Integer> getPaginationList(String search_page, int pageSize);
+
     public Long selectNumberOfPages();
 
     public boolean save(Page page);
