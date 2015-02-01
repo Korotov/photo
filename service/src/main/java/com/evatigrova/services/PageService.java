@@ -8,16 +8,15 @@ import org.apache.commons.lang.Validate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  *
@@ -48,7 +47,7 @@ public class PageService  implements IPageService {
      * @param maxPages
      * @return
      */
-    public Criteria paginationCriteria(int search_page_id, int maxPages) {
+    public Criteria CriteriaForSelect(int search_page_id, int maxPages) {
 
         Criteria criteria = pageDao.getSession().createCriteria(Page.class);
 
@@ -56,10 +55,8 @@ public class PageService  implements IPageService {
         criteria.setFirstResult(firstResult);
         criteria.setMaxResults(maxPages);
 
-
         return criteria;
     }
-
 
     /**
      *
@@ -71,7 +68,7 @@ public class PageService  implements IPageService {
     @Override
     public List<Page> getAllPages(String search_result, String category, int maxPages){
         Integer search_page_id = Integer.parseInt(search_result);
-        Criteria criteria = paginationCriteria(search_page_id, maxPages);
+        Criteria criteria = CriteriaForSelect(search_page_id, maxPages);
         Validate.notEmpty(category);
 
         Integer category_id = Integer.parseInt(category);
@@ -84,7 +81,7 @@ public class PageService  implements IPageService {
     public List<Page> getAllPages(String search_result, int maxPages){
         Integer search_page_id = Integer.parseInt(search_result);
 
-        Criteria criteria = paginationCriteria(search_page_id, maxPages);
+        Criteria criteria = CriteriaForSelect(search_page_id, maxPages);
         return pageDao.selectByCriteria(criteria);
     }
 
@@ -203,6 +200,25 @@ public class PageService  implements IPageService {
         pageDetail.setPage(page);
 
         return page;
+    }
+
+    public List<Integer> getPaginationList(String search_page, int pageSize) {
+        long numberOfPages = selectNumberOfPages();
+
+        int search_int = Integer.parseInt(search_page);
+
+        return pager.getList(numberOfPages, search_int, pageSize);
+    }
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    @Override
+    public Long selectNumberOfPages() {
+
+        String hql = "SELECT count(page_id) FROM com.evatigrova.Page";
+        Query query = pageDao.getSession().createQuery(hql);
+
+        Long results = pageDao.selectUniqueByHQL(query);
+        return results;
     }
 
 

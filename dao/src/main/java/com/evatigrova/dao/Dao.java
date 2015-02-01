@@ -31,6 +31,8 @@ public interface Dao<T> {
 
     public List<T> selectByHQL(Query query);
 
+    public Long selectUniqueByHQL(Query query);
+
     public List<T> selectAll();
 
     public T merge(T t);

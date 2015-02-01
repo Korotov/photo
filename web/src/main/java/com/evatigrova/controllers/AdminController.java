@@ -53,6 +53,8 @@ public class AdminController {
         }
 
 
+
+
         model.put("categories", categoryService.getCategories());
         model.put("pageList", pageList);
         model.put("search_page", search_page);

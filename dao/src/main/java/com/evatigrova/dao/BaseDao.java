@@ -107,6 +107,13 @@ public class BaseDao<T> implements Dao<T> {
     }
 
     @Override
+    public Long selectUniqueByHQL(Query query){
+        return (Long) query.uniqueResult();
+    }
+
+
+
+    @Override
     public List<T> selectAll() {
         List<T> list = sessionFactory.getCurrentSession().createQuery("from " + this.getEntityClass().getSimpleName()).list();
         return list;
